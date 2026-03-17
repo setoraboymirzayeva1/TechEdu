@@ -263,4 +263,1793 @@ select.fi{cursor:pointer}
 <div class="app" id="app">
 
 <!-- LANDING -->
-<div class="screen active" id="s-landi
+<div class="screen active" id="s-landing">
+  <div class="main">
+    <div class="hero">
+      <div class="hero-tag"><div class="tag-dot"></div> O'zbekistonning eng zamonaviy IT platformasi</div>
+      <h1><span class="g1">IT ta'lim</span><br><span>yangi darajada</span></h1>
+      <p class="hero-sub">Professional video darslar, interaktiv testlar va real-time progress kuzatuvi bilan IT sohasini o'rgan.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="openModal('regModal')">✦ Bepul boshlash</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('dirSection').scrollIntoView({behavior:'smooth'})">Kurslarni ko'rish →</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-n" id="hs-users">—</div><div class="hstat-l">Talaba</div></div>
+        <div class="hstat"><div class="hstat-n" id="hs-videos">—</div><div class="hstat-l">Video dars</div></div>
+        <div class="hstat"><div class="hstat-n" id="hs-tests">—</div><div class="hstat-l">Test</div></div>
+        <div class="hstat"><div class="hstat-n" id="hs-results">—</div><div class="hstat-l">Natija</div></div>
+      </div>
+    </div>
+    <div class="section" id="dirSection">
+      <div class="sec-tag">// Yo'nalishlar</div>
+      <div class="sec-title">Qaysi soha seni qiziqtiradi?</div>
+      <div class="sec-sub">Professional darajada o'rgan va karyerangni boshlang</div>
+      <div class="dir-grid" id="landingDirGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT -->
+<div class="screen" id="s-student">
+  <div class="main dash">
+    <div class="sidebar">
+      <div class="sb-section">Asosiy</div>
+      <div class="sb-item active" id="si-home" onclick="stdTab('home')"><div class="sb-icon">⚡️</div> Bosh sahifa</div>
+      <div class="sb-item" id="si-courses" onclick="stdTab('courses')"><div class="sb-icon">📚</div> Kurslar</div>
+      <div class="sb-item" id="si-tests" onclick="stdTab('tests')"><div class="sb-icon">📝</div> Testlar</div>
+      <div class="sb-item" id="si-results" onclick="stdTab('results')"><div class="sb-icon">🏆</div> Natijalarim</div>
+      <div class="sb-section">Hisob</div>
+      <div class="sb-item" id="si-profile" onclick="stdTab('profile')"><div class="sb-icon">👤</div> Profilim</div>
+      <div class="sb-item" onclick="doLogout()" style="color:var(--c3)"><div class="sb-icon">🚪</div> Chiqish</div>
+    </div>
+    <div class="content" id="stdContent"><div class="loader"><div class="spinner"></div>Yuklanmoqda...</div></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="screen" id="s-admin">
+  <div class="main dash">
+    <div class="sidebar">
+      <div class="sb-section">Admin Panel</div>
+      <div class="sb-item active" id="ai-dashboard" onclick="admTab('dashboard')"><div class="sb-icon">📊</div> Dashboard</div>
+      <div class="sb-item" id="ai-users" onclick="admTab('users')"><div class="sb-icon">👥</div> Talabalar</div>
+      <div class="sb-item" id="ai-videos" onclick="admTab('videos')"><div class="sb-icon">🎬</div> Videolar</div>
+      <div class="sb-item" id="ai-tests-m" onclick="admTab('tests-m')"><div class="sb-icon">📝</div> Testlar</div>
+      <div class="sb-item" id="ai-results-m" onclick="admTab('results-m')"><div class="sb-icon">🏆</div> Natijalar</div>
+      <div class="sb-item" id="ai-messages" onclick="admTab('messages')"><div class="sb-icon">💬</div> Xabarlar</div>
+      <div class="sb-section">Sozlamalar</div>
+      <div class="sb-item" onclick="admLogout()" style="color:var(--c3)"><div class="sb-icon">🚪</div> Chiqish</div>
+    </div>
+    <div class="content" id="admContent"><div class="loader"><div class="spinner"></div>Yuklanmoqda...</div></div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div class="screen" id="s-adminlogin">
+  <div class="main" style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 60px);padding:2rem">
+    <div style="width:100%;max-width:380px">
+      <div style="text-align:center;margin-bottom:2rem">
+        <div style="font-size:3rem;margin-bottom:0.8rem">🔐</div>
+        <div style="font-size:1.5rem;font-weight:800;margin-bottom:0.3rem">Admin Kirish</div>
+        <div style="color:var(--txt2);font-size:0.9rem">Faqat admin uchun</div>
+      </div>
+      <div class="card">
+        <div id="adminLoginAlert"></div>
+        <div class="fg">
+          <label class="fl">Parol</label>
+          <input class="fi" type="password" id="admPassInput" placeholder="Parolni kiriting" onkeypress="if(event.key==='Enter')tryAdminLogin()">
+        </div>
+        <button class="btn btn-primary btn-full" onclick="tryAdminLogin()">Kirish →</button>
+        <button class="btn btn-ghost btn-full" style="margin-top:0.6rem" onclick="showScreen('s-landing')">← Bosh sahifaga</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<!-- MODALS -->
+<!-- REGISTER -->
+<div class="overlay" id="regModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('regModal')">✕</button>
+    <div class="modal-title">Ro'yxatdan o'tish ✦</div>
+    <div class="modal-sub">Platformaga qo'shiling va o'rganishni boshlang</div>
+    <div id="regAlert"></div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Ism *</label><input class="fi" id="rFname" placeholder="Isming"></div>
+      <div class="fg"><label class="fl">Familiya *</label><input class="fi" id="rLname" placeholder="Familiyangiz"></div>
+    </div>
+    <div class="fg"><label class="fl">Telefon *</label><input class="fi" id="rPhone" placeholder="+998 90 123 45 67" type="tel"></div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" id="rEmail" placeholder="email@example.com" type="email"></div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Yosh</label><input class="fi" id="rAge" placeholder="20" type="number"></div>
+      <div class="fg"><label class="fl">Shahar</label><input class="fi" id="rCity" placeholder="Toshkent"></div>
+    </div>
+    <div class="fg">
+      <label class="fl">Qiziqadigan yo'nalish</label>
+      <select class="fi" id="rDir">
+        <option value="">Tanlang...</option>
+        <option>Frontend (HTML, CSS, JS)</option>
+        <option>Backend (Python, Node.js)</option>
+        <option>Mobile Development</option>
+        <option>Cybersecurity</option>
+        <option>Data Science / AI</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">O'zingiz haqingizda</label><textarea class="fi" id="rBio" placeholder="Qisqacha o'zingizni tanishtirib o'ting..."></textarea></div>
+    <button class="btn btn-primary btn-full" id="regBtn" onclick="doRegister()">✓ Ro'yxatdan o'tish</button>
+    <div style="text-align:center;margin-top:1rem;color:var(--txt2);font-size:0.8rem">
+      Allaqachon ro'yxatdan o'tganmisiz? <span style="color:var(--c1);cursor:pointer" onclick="openModal('loginModal');closeModal('regModal')">Kirish</span>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    <div class="modal-title">Xush kelibsiz 👋</div>
+    <div class="modal-sub">Telefon raqamingiz bilan kiring</div>
+    <div id="loginAlert"></div>
+    <div class="fg"><label class="fl">Telefon raqam *</label><input class="fi" id="lPhone" placeholder="+998 90 123 45 67" onkeypress="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn btn-primary btn-full" id="loginBtn" onclick="doLogin()">Kirish →</button>
+    <div style="text-align:center;margin-top:1rem;color:var(--txt2);font-size:0.8rem">
+      Akkaunt yo'qmi? <span style="color:var(--c1);cursor:pointer" onclick="openModal('regModal');closeModal('loginModal')">Ro'yxatdan o'tish</span>
+    </div>
+  </div>
+</div>
+<!-- VIDEO PLAYER -->
+<div class="overlay" id="videoModal">
+  <div class="modal modal-xl" style="position:relative">
+    <button class="modal-close" onclick="closeModal('videoModal')">✕</button>
+    <div id="videoModalBody"></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="overlay" id="contactModal">
+  <div class="modal modal-lg" style="position:relative">
+    <button class="modal-close" onclick="closeModal('contactModal')">✕</button>
+    <div id="contactModalBody"></div>
+  </div>
+</div>
+
+<!-- ADD VIDEO -->
+<div class="overlay" id="addVideoModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('addVideoModal')">✕</button>
+    <div class="modal-title">🎬 Video qo'shish</div>
+    <div class="modal-sub">Kursga yangi video dars qo'shing</div>
+    <div class="fg"><label class="fl">Yo'nalish</label>
+      <select class="fi" id="avDir">
+        <option value="0">🌐 Frontend</option><option value="1">⚙️ Backend</option>
+        <option value="2">📱 Mobile</option><option value="3">🔐 Cybersecurity</option>
+        <option value="4">🤖 Data Science / AI</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">Sarlavha *</label><input class="fi" id="avTitle" placeholder="Masalan: HTML asoslari — 1-dars"></div>
+    <div class="fg"><label class="fl">YouTube Embed URL</label><input class="fi" id="avUrl" placeholder="https://www.youtube.com/embed/VIDEO_ID"></div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Davomiylik</label><input class="fi" id="avDur" placeholder="15:30"></div>
+      <div class="fg"><label class="fl">Daraja</label>
+        <select class="fi" id="avLevel"><option>Boshlang'ich</option><option>O'rta</option><option>Murakkab</option></select>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Tavsif</label><textarea class="fi" id="avDesc" placeholder="Bu darsda nima o'rganiladi..."></textarea></div>
+    <button class="btn btn-primary btn-full" id="avBtn" onclick="doAddVideo()">✓ Qo'shish</button>
+    <div id="avAlert" style="margin-top:0.8rem"></div>
+  </div>
+</div>
+
+<!-- ADD TEST -->
+<div class="overlay" id="addTestModal">
+  <div class="modal modal-lg" style="position:relative;max-height:88vh;overflow-y:auto">
+    <button class="modal-close" onclick="closeModal('addTestModal')">✕</button>
+    <div class="modal-title">📝 Test yaratish</div>
+    <div class="modal-sub">Savollar qo'shing va to'g'ri javobni belgilang</div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Test nomi *</label><input class="fi" id="atName" placeholder="Test nomi"></div>
+      <div class="fg"><label class="fl">Yo'nalish</label>
+        <select class="fi" id="atDir">
+          <option value="0">🌐 Frontend</option><option value="1">⚙️ Backend</option>
+          <option value="2">📱 Mobile</option><option value="3">🔐 Cybersecurity</option>
+          <option value="4">🤖 Data Science / AI</option>
+        </select>
+      </div>
+    </div>
+    <div id="atQuestions"></div>
+    <button class="btn btn-ghost btn-sm" onclick="addQField()" style="margin-bottom:1rem">+ Savol qo'shish</button>
+    <div class="divider"></div>
+    <button class="btn btn-primary btn-full" id="atBtn" onclick="doSaveTest()">✓ Testni saqlash</button>
+    <div id="atAlert" style="margin-top:0.8rem"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  JSONBIN CONFIG
+// ═══════════════════════════════════════════
+const API_KEY = '$2a$10$MEPoqzYaHU3hRJ4mosQLfODl58hT7on09IaUBbB43PM3VZt2IACmG';
+const BASE_URL = 'https://api.jsonbin.io/v3/b';
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'X-Master-Key': API_KEY
+};
+
+// Bin IDs - birinchi ishga tushganda yaratiladi
+let BINS = JSON.parse(localStorage.getItem('te3_bins') || '{}');
+
+// ═══════════════════════════════════════════
+//  LOCAL CACHE
+// ═══════════════════════════════════════════
+let DB = {
+  users: [],
+  videos: [],
+  tests: [],
+  results: [],
+  messages: [],
+  settings: { adminPass: 'admin123' }
+};<!-- VIDEO PLAYER -->
+<div class="overlay" id="videoModal">
+  <div class="modal modal-xl" style="position:relative">
+    <button class="modal-close" onclick="closeModal('videoModal')">✕</button>
+    <div id="videoModalBody"></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="overlay" id="contactModal">
+  <div class="modal modal-lg" style="position:relative">
+    <button class="modal-close" onclick="closeModal('contactModal')">✕</button>
+    <div id="contactModalBody"></div>
+  </div>
+</div>
+
+<!-- ADD VIDEO -->
+<div class="overlay" id="addVideoModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('addVideoModal')">✕</button>
+    <div class="modal-title">🎬 Video qo'shish</div>
+    <div class="modal-sub">Kursga yangi video dars qo'shing</div>
+    <div class="fg"><label class="fl">Yo'nalish</label>
+      <select class="fi" id="avDir">
+        <option value="0">🌐 Frontend</option><option value="1">⚙️ Backend</option>
+        <option value="2">📱 Mobile</option><option value="3">🔐 Cybersecurity</option>
+        <option value="4">🤖 Data Science / AI</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">Sarlavha *</label><input class="fi" id="avTitle" placeholder="Masalan: HTML asoslari — 1-dars"></div>
+    <div class="fg"><label class="fl">YouTube Embed URL</label><input class="fi" id="avUrl" placeholder="https://www.youtube.com/embed/VIDEO_ID"></div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Davomiylik</label><input class="fi" id="avDur" placeholder="15:30"></div>
+      <div class="fg"><label class="fl">Daraja</label>
+        <select class="fi" id="avLevel"><option>Boshlang'ich</option><option>O'rta</option><option>Murakkab</option></select>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Tavsif</label><textarea class="fi" id="avDesc" placeholder="Bu darsda nima o'rganiladi..."></textarea></div>
+    <button class="btn btn-primary btn-full" id="avBtn" onclick="doAddVideo()">✓ Qo'shish</button>
+    <div id="avAlert" style="margin-top:0.8rem"></div>
+  </div>
+</div>
+
+<!-- ADD TEST -->
+<div class="overlay" id="addTestModal">
+  <div class="modal modal-lg" style="position:relative;max-height:88vh;overflow-y:auto">
+    <button class="modal-close" onclick="closeModal('addTestModal')">✕</button>
+    <div class="modal-title">📝 Test yaratish</div>
+    <div class="modal-sub">Savollar qo'shing va to'g'ri javobni belgilang</div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Test nomi *</label><input class="fi" id="atName" placeholder="Test nomi"></div>
+      <div class="fg"><label class="fl">Yo'nalish</label>
+        <select class="fi" id="atDir">
+          <option value="0">🌐 Frontend</option><option value="1">⚙️ Backend</option>
+          <option value="2">📱 Mobile</option><option value="3">🔐 Cybersecurity</option>
+          <option value="4">🤖 Data Science / AI</option>
+        </select>
+      </div>
+    </div>
+    <div id="atQuestions"></div>
+    <button class="btn btn-ghost btn-sm" onclick="addQField()" style="margin-bottom:1rem">+ Savol qo'shish</button>
+    <div class="divider"></div>
+    <button class="btn btn-primary btn-full" id="atBtn" onclick="doSaveTest()">✓ Testni saqlash</button>
+    <div id="atAlert" style="margin-top:0.8rem"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  JSONBIN CONFIG
+// ═══════════════════════════════════════════
+const API_KEY = '$2a$10$MEPoqzYaHU3hRJ4mosQLfODl58hT7on09IaUBbB43PM3VZt2IACmG';
+const BASE_URL = 'https://api.jsonbin.io/v3/b';
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'X-Master-Key': API_KEY
+};
+
+// Bin IDs - birinchi ishga tushganda yaratiladi
+let BINS = JSON.parse(localStorage.getItem('te3_bins') || '{}');
+
+// ═══════════════════════════════════════════
+//  LOCAL CACHE
+// ═══════════════════════════════════════════
+let DB = {
+  users: [],
+  videos: [],
+  tests: [],
+  results: [],
+  messages: [],
+  settings: { adminPass: 'admin123' }
+};
+  let STATE = {
+  user: JSON.parse(localStorage.getItem('te3_user') || 'null'),
+  adminIn: sessionStorage.getItem('te3_adm') === '1',
+  activeDir: null,
+  activeTest: null,
+  testAnswers: {},
+  syncing: false
+};
+
+// ═══════════════════════════════════════════
+//  DIRECTIONS
+// ═══════════════════════════════════════════
+const DIRS = [
+  {name:'Frontend',icon:'🌐',desc:'HTML, CSS, JavaScript, React — zamonaviy web interfeys yarating'},
+  {name:'Backend',icon:'⚙️',desc:'Python, Node.js, PHP — server va ma\'lumotlar bazasi'},
+  {name:'Mobile',icon:'📱',desc:'Flutter, React Native — mobil ilova ishlab chiqish'},
+  {name:'Cybersecurity',icon:'🔐',desc:'Tarmoq xavfsizligi, penetration testing, kriptografiya'},
+  {name:'Data Science',icon:'🤖',desc:'Machine Learning, AI, Python analytics, neural networks'},
+];
+
+// ═══════════════════════════════════════════
+//  JSONBIN API
+// ═══════════════════════════════════════════
+async function createBin(name, data) {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: { ...HEADERS, 'X-Bin-Name': name, 'X-Bin-Private': 'false' },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    return json.metadata?.id || null;
+  } catch(e) { return null; }
+}
+
+async function getBin(id) {
+  try {
+    const res = await fetch(${BASE_URL}/${id}/latest, { headers: HEADERS });
+    const json = await res.json();
+    return json.record || null;
+  } catch(e) { return null; }
+}
+
+async function updateBin(id, data) {
+  try {
+    const res = await fetch(${BASE_URL}/${id}, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify(data)
+    });
+    return res.ok;
+  } catch(e) { return false; }
+}
+
+async function ensureBin(key, defaultData) {
+  if (!BINS[key]) {
+    const id = await createBin('techedu_' + key, defaultData);
+    if (id) {
+      BINS[key] = id;
+      localStorage.setItem('te3_bins', JSON.stringify(BINS));
+    }
+  }
+  return BINS[key];
+}
+
+// ═══════════════════════════════════════════
+//  DATA OPERATIONS
+// ═══════════════════════════════════════════
+async function loadAll() {
+  // Barcha ma'lumotlarni yuklaymiz yoki yangi yaratamiz
+  const keys = ['users','videos','tests','results','messages','settings'];
+  const defaults = {
+    users: [],
+    videos: defaultVideos(),
+    tests: defaultTests(),
+    results: [],
+    messages: [],
+    settings: { adminPass: 'admin123' }
+  };
+
+  for (const key of keys) {
+    const id = await ensureBin(key, defaults[key]);
+    if (id) {
+      const data = await getBin(id);
+      if (data !== null) DB[key] = data;
+      else DB[key] = defaults[key];
+    } else {
+      DB[key] = defaults[key];
+    }
+  }
+  updateHeroStats();
+}
+
+async function saveKey(key) {
+  const id = BINS[key];
+  if (id) await updateBin(id, DB[key]);
+}
+
+// ═══════════════════════════════════════════
+//  DEFAULT DATA
+// ═══════════════════════════════════════════
+function defaultVideos() {
+  return [
+    {id:1,dir:0,title:'HTML teglari bilan tanishuv',url:'https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level:"Boshlang'ich",desc:'HTML tuzilishi va asosiy teglar',date:now()},
+    {id:2,dir:0,title:'CSS Flexbox va Grid',url:'https://www.youtube.com/embed/JJSoEo8JSnc',dur:'22:15',level:"Boshlang'ich",desc:'Layout qilishni o\'rganamiz',date:now()},
+    {id:3,dir:0,title:'JavaScript kirish',url:'https://www.youtube.com/embed/W6NZfCO5SIk',dur:'18:40',level:"Boshlang'ich",desc:'JS asoslari va o\'zgaruvchilar',date:now()},
+    {id:4,dir:1,title:'Python — birinchi qadamlar',url:'https://www.youtube.com/embed/_uQrJ0TkZlc',dur:'25:00',level:"Boshlang'ich",desc:'Python o\'rnatish va sintaksis',date:now()},
+    {id:5,dir:2,title:'Flutter asoslari',url:'https://www.youtube.com/embed/1gDhl4leEzA',dur:'28:10',level:"Boshlang'ich",desc:'Flutter bilan mobil ilova',date:now()},
+
+YouTube (https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level)
+HTML Tutorial for Beginners: HTML Crash Course
+Start your web development career with HTML/CSS! 🌐  This beginner-friendly tutorial covers the essentials.
+
+🚀 Want to master HTML/CSS?
+- Check out my complete course: https://mosh.link/htmlcss-course
+- Subscribe for more awesome content: https://goo.gl/6PYaGF
+
+✋ Stay connected:
+- Twitter: https://twitter.com/moshhamedani
+- Facebook: https://www.facebook.com/programmingwithmosh/
+- Instagram: https://www.instagram.com/codewithmosh.official/
+- LinkedIn: https://www.linkedin.com/school/codewithmosh/
+
+💡 Why HTML?
+- It's the foundation for every website.
+- Essential skill for front-end web developers.
+- Easy to learn, even for absolute beginners.
+
+👉 This tutorial is perfect for you if:
+- You dream of a career in web development.
+- You want to build your own website.
+- You're curious about how the internet works.
+
+📖 TABLE OF CONTENT 
+0:00:00 Introduction
+0:01:09 What You Need 
+0:03:42 Languages and Tools of Web Development 
+0:09:36 How the Web Works
+0:14:27 Inspecting HTTP Requests and Responses 
+0:18:30 HTML Basics
+0:25:41 CSS Basics
+0:30:35 Formatting Code
+0:32:51 Inspecting Pages Using DevTools
+0:35:04 Validating Web Pages
+0:39:45 The Head Section
+0:43:33 Text
+0:50:13 Entities
+0:53:42 Hyperlinks
+1:03:12 Images
+
+#HTML #WebDevelopment #Codinglet STATE = {
+  user: JSON.parse(localStorage.getItem('te3_user') || 'null'),
+  adminIn: sessionStorage.getItem('te3_adm') === '1',
+  activeDir: null,
+  activeTest: null,
+  testAnswers: {},
+  syncing: false
+};
+
+// ═══════════════════════════════════════════
+//  DIRECTIONS
+// ═══════════════════════════════════════════
+const DIRS = [
+  {name:'Frontend',icon:'🌐',desc:'HTML, CSS, JavaScript, React — zamonaviy web interfeys yarating'},
+  {name:'Backend',icon:'⚙️',desc:'Python, Node.js, PHP — server va ma\'lumotlar bazasi'},
+  {name:'Mobile',icon:'📱',desc:'Flutter, React Native — mobil ilova ishlab chiqish'},
+  {name:'Cybersecurity',icon:'🔐',desc:'Tarmoq xavfsizligi, penetration testing, kriptografiya'},
+  {name:'Data Science',icon:'🤖',desc:'Machine Learning, AI, Python analytics, neural networks'},
+];
+
+// ═══════════════════════════════════════════
+//  JSONBIN API
+// ═══════════════════════════════════════════
+async function createBin(name, data) {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: { ...HEADERS, 'X-Bin-Name': name, 'X-Bin-Private': 'false' },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    return json.metadata?.id || null;
+  } catch(e) { return null; }
+}
+
+async function getBin(id) {
+  try {
+    const res = await fetch(${BASE_URL}/${id}/latest, { headers: HEADERS });
+    const json = await res.json();
+    return json.record || null;
+  } catch(e) { return null; }
+}
+
+async function updateBin(id, data) {
+  try {
+    const res = await fetch(${BASE_URL}/${id}, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify(data)
+    });
+    return res.ok;
+  } catch(e) { return false; }
+}
+
+async function ensureBin(key, defaultData) {
+  if (!BINS[key]) {
+    const id = await createBin('techedu_' + key, defaultData);
+    if (id) {
+      BINS[key] = id;
+      localStorage.setItem('te3_bins', JSON.stringify(BINS));
+    }
+  }
+  return BINS[key];
+}
+
+// ═══════════════════════════════════════════
+//  DATA OPERATIONS
+// ═══════════════════════════════════════════
+async function loadAll() {
+  // Barcha ma'lumotlarni yuklaymiz yoki yangi yaratamiz
+  const keys = ['users','videos','tests','results','messages','settings'];
+  const defaults = {
+    users: [],
+    videos: defaultVideos(),
+    tests: defaultTests(),
+    results: [],
+    messages: [],
+    settings: { adminPass: 'admin123' }
+  };
+
+  for (const key of keys) {
+    const id = await ensureBin(key, defaults[key]);
+    if (id) {
+      const data = await getBin(id);
+      if (data !== null) DB[key] = data;
+      else DB[key] = defaults[key];
+    } else {
+      DB[key] = defaults[key];
+    }
+  }
+  updateHeroStats();
+}
+
+async function saveKey(key) {
+  const id = BINS[key];
+  if (id) await updateBin(id, DB[key]);
+}
+
+// ═══════════════════════════════════════════
+//  DEFAULT DATA
+// ═══════════════════════════════════════════
+function defaultVideos() {
+  return [
+    {id:1,dir:0,title:'HTML teglari bilan tanishuv',url:'https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level:"Boshlang'ich",desc:'HTML tuzilishi va asosiy teglar',date:now()},
+    {id:2,dir:0,title:'CSS Flexbox va Grid',url:'https://www.youtube.com/embed/JJSoEo8JSnc',dur:'22:15',level:"Boshlang'ich",desc:'Layout qilishni o\'rganamiz',date:now()},
+    {id:3,dir:0,title:'JavaScript kirish',url:'https://www.youtube.com/embed/W6NZfCO5SIk',dur:'18:40',level:"Boshlang'ich",desc:'JS asoslari va o\'zgaruvchilar',date:now()},
+    {id:4,dir:1,title:'Python — birinchi qadamlar',url:'https://www.youtube.com/embed/_uQrJ0TkZlc',dur:'25:00',level:"Boshlang'ich",desc:'Python o\'rnatish va sintaksis',date:now()},
+    {id:5,dir:2,title:'Flutter asoslari',url:'https://www.youtube.com/embed/1gDhl4leEzA',dur:'28:10',level:"Boshlang'ich",desc:'Flutter bilan mobil ilova',date:now()},
+
+YouTube (https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level)
+HTML Tutorial for Beginners: HTML Crash Course
+Start your web development career with HTML/CSS! 🌐  This beginner-friendly tutorial covers the essentials.
+
+🚀 Want to master HTML/CSS?
+- Check out my complete course: https://mosh.link/htmlcss-course
+- Subscribe for more awesome content: https://goo.gl/6PYaGF
+
+✋ Stay connected:
+- Twitter: https://twitter.com/moshhamedani
+- Facebook: https://www.facebook.com/programmingwithmosh/
+- Instagram: https://www.instagram.com/codewithmosh.official/
+- LinkedIn: https://www.linkedin.com/school/codewithmosh/
+
+💡 Why HTML?
+- It's the foundation for every website.
+- Essential skill for front-end web developers.
+- Easy to learn, even for absolute beginners.
+
+👉 This tutorial is perfect for you if:
+- You dream of a career in web development.
+- You want to build your own website.
+- You're curious about how the internet works.
+
+📖 TABLE OF CONTENT 
+0:00:00 Introduction
+0:01:09 What You Need 
+0:03:42 Languages and Tools of Web Development 
+0:09:36 How the Web Works
+0:14:27 Inspecting HTTP Requests and Responses 
+0:18:30 HTML Basics
+0:25:41 CSS Basics
+0:30:35 Formatting Code
+0:32:51 Inspecting Pages Using DevTools
+0:35:04 Validating Web Pages
+0:39:45 The Head Section
+0:43:33 Text
+0:50:13 Entities
+0:53:42 Hyperlinks
+1:03:12 Images
+
+#HTML #WebDevelopment #Codinglet STATE = {
+  user: JSON.parse(localStorage.getItem('te3_user') || 'null'),
+  adminIn: sessionStorage.getItem('te3_adm') === '1',
+  activeDir: null,
+  activeTest: null,
+  testAnswers: {},
+  syncing: false
+};
+
+// ═══════════════════════════════════════════
+//  DIRECTIONS
+// ═══════════════════════════════════════════
+const DIRS = [
+  {name:'Frontend',icon:'🌐',desc:'HTML, CSS, JavaScript, React — zamonaviy web interfeys yarating'},
+  {name:'Backend',icon:'⚙️',desc:'Python, Node.js, PHP — server va ma\'lumotlar bazasi'},
+  {name:'Mobile',icon:'📱',desc:'Flutter, React Native — mobil ilova ishlab chiqish'},
+  {name:'Cybersecurity',icon:'🔐',desc:'Tarmoq xavfsizligi, penetration testing, kriptografiya'},
+  {name:'Data Science',icon:'🤖',desc:'Machine Learning, AI, Python analytics, neural networks'},
+];
+
+// ═══════════════════════════════════════════
+//  JSONBIN API
+// ═══════════════════════════════════════════
+async function createBin(name, data) {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: { ...HEADERS, 'X-Bin-Name': name, 'X-Bin-Private': 'false' },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    return json.metadata?.id || null;
+  } catch(e) { return null; }
+}
+
+async function getBin(id) {
+  try {
+    const res = await fetch(${BASE_URL}/${id}/latest, { headers: HEADERS });
+    const json = await res.json();
+    return json.record || null;
+  } catch(e) { return null; }
+}
+
+async function updateBin(id, data) {
+  try {
+    const res = await fetch(${BASE_URL}/${id}, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify(data)
+    });
+    return res.ok;
+  } catch(e) { return false; }
+}
+
+async function ensureBin(key, defaultData) {
+  if (!BINS[key]) {
+    const id = await createBin('techedu_' + key, defaultData);
+    if (id) {
+      BINS[key] = id;
+      localStorage.setItem('te3_bins', JSON.stringify(BINS));
+    }
+  }
+  return BINS[key];
+}
+
+// ═══════════════════════════════════════════
+//  DATA OPERATIONS
+// ═══════════════════════════════════════════
+async function loadAll() {
+  // Barcha ma'lumotlarni yuklaymiz yoki yangi yaratamiz
+  const keys = ['users','videos','tests','results','messages','settings'];
+  const defaults = {
+    users: [],
+    videos: defaultVideos(),
+    tests: defaultTests(),
+    results: [],
+    messages: [],
+    settings: { adminPass: 'admin123' }
+  };
+
+  for (const key of keys) {
+    const id = await ensureBin(key, defaults[key]);
+    if (id) {
+      const data = await getBin(id);
+      if (data !== null) DB[key] = data;
+      else DB[key] = defaults[key];
+    } else {
+      DB[key] = defaults[key];
+    }
+  }
+  updateHeroStats();
+}
+
+async function saveKey(key) {
+  const id = BINS[key];
+  if (id) await updateBin(id, DB[key]);
+}
+
+// ═══════════════════════════════════════════
+//  DEFAULT DATA
+// ═══════════════════════════════════════════
+function defaultVideos() {
+  return [
+    {id:1,dir:0,title:'HTML teglari bilan tanishuv',url:'https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level:"Boshlang'ich",desc:'HTML tuzilishi va asosiy teglar',date:now()},
+    {id:2,dir:0,title:'CSS Flexbox va Grid',url:'https://www.youtube.com/embed/JJSoEo8JSnc',dur:'22:15',level:"Boshlang'ich",desc:'Layout qilishni o\'rganamiz',date:now()},
+    {id:3,dir:0,title:'JavaScript kirish',url:'https://www.youtube.com/embed/W6NZfCO5SIk',dur:'18:40',level:"Boshlang'ich",desc:'JS asoslari va o\'zgaruvchilar',date:now()},
+    {id:4,dir:1,title:'Python — birinchi qadamlar',url:'https://www.youtube.com/embed/_uQrJ0TkZlc',dur:'25:00',level:"Boshlang'ich",desc:'Python o\'rnatish va sintaksis',date:now()},
+    {id:5,dir:2,title:'Flutter asoslari',url:'https://www.youtube.com/embed/1gDhl4leEzA',dur:'28:10',level:"Boshlang'ich",desc:'Flutter bilan mobil ilova',date:now()},
+
+YouTube (https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level)
+HTML Tutorial for Beginners: HTML Crash Course
+Start your web development career with HTML/CSS! 🌐  This beginner-friendly tutorial covers the essentials.
+
+🚀 Want to master HTML/CSS?
+- Check out my complete course: https://mosh.link/htmlcss-course
+- Subscribe for more awesome content: https://goo.gl/6PYaGF
+
+✋ Stay connected:
+- Twitter: https://twitter.com/moshhamedani
+- Facebook: https://www.facebook.com/programmingwithmosh/
+- Instagram: https://www.instagram.com/codewithmosh.official/
+- LinkedIn: https://www.linkedin.com/school/codewithmosh/
+
+💡 Why HTML?
+- It's the foundation for every website.
+- Essential skill for front-end web developers.
+- Easy to learn, even for absolute beginners.
+
+👉 This tutorial is perfect for you if:
+- You dream of a career in web development.
+- You want to build your own website.
+- You're curious about how the internet works.
+
+📖 TABLE OF CONTENT 
+0:00:00 Introduction
+0:01:09 What You Need 
+0:03:42 Languages and Tools of Web Development 
+0:09:36 How the Web Works
+0:14:27 Inspecting HTTP Requests and Responses 
+0:18:30 HTML Basics
+0:25:41 CSS Basics
+0:30:35 Formatting Code
+0:32:51 Inspecting Pages Using DevTools
+0:35:04 Validating Web Pages
+0:39:45 The Head Section
+0:43:33 Text
+0:50:13 Entities
+0:53:42 Hyperlinks
+1:03:12 Images
+
+#HTML #WebDevelopment #Codinglet STATE = {
+  user: JSON.parse(localStorage.getItem('te3_user') || 'null'),
+  adminIn: sessionStorage.getItem('te3_adm') === '1',
+  activeDir: null,
+  activeTest: null,
+  testAnswers: {},
+  syncing: false
+};
+
+// ═══════════════════════════════════════════
+//  DIRECTIONS
+// ═══════════════════════════════════════════
+const DIRS = [
+  {name:'Frontend',icon:'🌐',desc:'HTML, CSS, JavaScript, React — zamonaviy web interfeys yarating'},
+  {name:'Backend',icon:'⚙️',desc:'Python, Node.js, PHP — server va ma\'lumotlar bazasi'},
+  {name:'Mobile',icon:'📱',desc:'Flutter, React Native — mobil ilova ishlab chiqish'},
+  {name:'Cybersecurity',icon:'🔐',desc:'Tarmoq xavfsizligi, penetration testing, kriptografiya'},
+  {name:'Data Science',icon:'🤖',desc:'Machine Learning, AI, Python analytics, neural networks'},
+];
+
+// ═══════════════════════════════════════════
+//  JSONBIN API
+// ═══════════════════════════════════════════
+async function createBin(name, data) {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: { ...HEADERS, 'X-Bin-Name': name, 'X-Bin-Private': 'false' },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    return json.metadata?.id || null;
+  } catch(e) { return null; }
+}
+
+async function getBin(id) {
+  try {
+    const res = await fetch(${BASE_URL}/${id}/latest, { headers: HEADERS });
+    const json = await res.json();
+    return json.record || null;
+  } catch(e) { return null; }
+}
+
+async function updateBin(id, data) {
+  try {
+    const res = await fetch(${BASE_URL}/${id}, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify(data)
+    });
+    return res.ok;
+  } catch(e) { return false; }
+}
+
+async function ensureBin(key, defaultData) {
+  if (!BINS[key]) {
+    const id = await createBin('techedu_' + key, defaultData);
+    if (id) {
+      BINS[key] = id;
+      localStorage.setItem('te3_bins', JSON.stringify(BINS));
+    }
+  }
+  return BINS[key];
+}
+
+// ═══════════════════════════════════════════
+//  DATA OPERATIONS
+// ═══════════════════════════════════════════
+async function loadAll() {
+  // Barcha ma'lumotlarni yuklaymiz yoki yangi yaratamiz
+  const keys = ['users','videos','tests','results','messages','settings'];
+  const defaults = {
+    users: [],
+    videos: defaultVideos(),
+    tests: defaultTests(),
+    results: [],
+    messages: [],
+    settings: { adminPass: 'admin123' }
+  };
+
+  for (const key of keys) {
+    const id = await ensureBin(key, defaults[key]);
+    if (id) {
+      const data = await getBin(id);
+      if (data !== null) DB[key] = data;
+      else DB[key] = defaults[key];
+    } else {
+      DB[key] = defaults[key];
+    }
+  }
+  updateHeroStats();
+}
+
+async function saveKey(key) {
+  const id = BINS[key];
+  if (id) await updateBin(id, DB[key]);
+}
+
+// ═══════════════════════════════════════════
+//  DEFAULT DATA
+// ═══════════════════════════════════════════
+function defaultVideos() {
+  return [
+    {id:1,dir:0,title:'HTML teglari bilan tanishuv',url:'https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level:"Boshlang'ich",desc:'HTML tuzilishi va asosiy teglar',date:now()},
+    {id:2,dir:0,title:'CSS Flexbox va Grid',url:'https://www.youtube.com/embed/JJSoEo8JSnc',dur:'22:15',level:"Boshlang'ich",desc:'Layout qilishni o\'rganamiz',date:now()},
+    {id:3,dir:0,title:'JavaScript kirish',url:'https://www.youtube.com/embed/W6NZfCO5SIk',dur:'18:40',level:"Boshlang'ich",desc:'JS asoslari va o\'zgaruvchilar',date:now()},
+    {id:4,dir:1,title:'Python — birinchi qadamlar',url:'https://www.youtube.com/embed/_uQrJ0TkZlc',dur:'25:00',level:"Boshlang'ich",desc:'Python o\'rnatish va sintaksis',date:now()},
+    {id:5,dir:2,title:'Flutter asoslari',url:'https://www.youtube.com/embed/1gDhl4leEzA',dur:'28:10',level:"Boshlang'ich",desc:'Flutter bilan mobil ilova',date:now()},
+
+YouTube (https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level)
+HTML Tutorial for Beginners: HTML Crash Course
+Start your web development career with HTML/CSS! 🌐  This beginner-friendly tutorial covers the essentials.
+
+🚀 Want to master HTML/CSS?
+- Check out my complete course: https://mosh.link/htmlcss-course
+- Subscribe for more awesome content: https://goo.gl/6PYaGF
+
+✋ Stay connected:
+- Twitter: https://twitter.com/moshhamedani
+- Facebook: https://www.facebook.com/programmingwithmosh/
+- Instagram: https://www.instagram.com/codewithmosh.official/
+- LinkedIn: https://www.linkedin.com/school/codewithmosh/
+
+💡 Why HTML?
+- It's the foundation for every website.
+- Essential skill for front-end web developers.
+- Easy to learn, even for absolute beginners.
+
+👉 This tutorial is perfect for you if:
+- You dream of a career in web development.
+- You want to build your own website.
+- You're curious about how the internet works.
+
+📖 TABLE OF CONTENT 
+0:00:00 Introduction
+0:01:09 What You Need 
+0:03:42 Languages and Tools of Web Development 
+0:09:36 How the Web Works
+0:14:27 Inspecting HTTP Requests and Responses 
+0:18:30 HTML Basics
+0:25:41 CSS Basics
+0:30:35 Formatting Code
+0:32:51 Inspecting Pages Using DevTools
+0:35:04 Validating Web Pages
+0:39:45 The Head Section
+0:43:33 Text
+0:50:13 Entities
+0:53:42 Hyperlinks
+1:03:12 Images
+
+#HTML #WebDevelopment #Codingv
+  {id:6,dir:3,title:'Kiberxavfsizlik kirish',url:'https://www.youtube.com/embed/inWWhr5tnEA',dur:'20:00',level:"Boshlang'ich",desc:'Asosiy tushunchalar',date:now()},
+    {id:7,dir:4,title:'Python Data Science',url:'https://www.youtube.com/embed/LHBE0uyla5k',dur:'40:00',level:"O'rta",desc:'Pandas, NumPy, Matplotlib',date:now()},
+  ];
+}
+function defaultTests() {
+  return [
+    {id:1,dir:0,name:"HTML/CSS Asosiy Test",date:now(),questions:[
+      {q:'HTML qisqartmasi nima?',opts:['HyperText Markup Language','High Tech Modern Language','Home Tool Markup Language','Hyper Transfer Language'],c:0},
+      {q:'CSS da rang berish uchun?',opts:['color','font-color','text-color','fill'],c:0},
+      {q:'Havola uchun HTML teg?',opts:['<a>','<link>','<href>','<url>'],c:0},
+      {q:'Flexbox uchun CSS xususiyat?',opts:['display: flex','layout: flex','position: flex','align: flex'],c:0},
+    ]},
+    {id:2,dir:1,name:"Python Boshlang'ich Test",date:now(),questions:[
+      {q:"Python da print funksiyasi?",opts:['print("hello")','echo("hello")','console.log("hello")','write("hello")'],c:0},
+      {q:"Python da ro'yxat yaratish?",opts:['a = [1,2,3]','a = (1,2,3)','a = {1,2,3}','a = <1,2,3>'],c:0},
+      {q:"Python da for loop?",opts:['for i in range(5):','for(i=0;i<5;i++)','foreach i in 5:','loop i 0 to 5:'],c:0},
+    ]}
+  ];
+}
+function now() { return new Date().toISOString(); }
+function niceDate(d) { return new Date(d).toLocaleDateString('uz-UZ',{day:'2-digit',month:'short',year:'numeric'}); }
+
+// ═══════════════════════════════════════════
+//  SCREEN
+// ═══════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  updateTopbar();
+  window.scrollTo(0,0);
+}
+function goHome() {
+  if(STATE.adminIn) { showScreen('s-admin'); admTab('dashboard'); return; }
+  if(STATE.user) { showScreen('s-student'); stdTab('home'); return; }
+  showScreen('s-landing');
+}
+
+// ═══════════════════════════════════════════
+//  TOPBAR
+// ═══════════════════════════════════════════
+function updateTopbar() {
+  const R = document.getElementById('topbarRight');
+  if(STATE.adminIn) {
+    R.innerHTML = <span style="font-size:0.75rem;color:var(--txt2);font-family:'JetBrains Mono',monospace;padding:0 0.5rem">⚡️ Admin</span>
+      <button class="tb-btn" onclick="admTab('dashboard')">📊 Panel</button>
+      <button class="tb-btn" style="color:var(--c3)" onclick="admLogout()">Chiqish</button>;
+  } else if(STATE.user) {
+    const u = STATE.user;
+    const col = aColor(u.id);
+    R.innerHTML = <button class="tb-btn" onclick="stdTab('courses')">📚 Kurslar</button>
+      <button class="tb-btn" onclick="stdTab('tests')">📝 Testlar</button>
+      <div class="tb-user" onclick="stdTab('profile')">
+        <div class="tb-avatar" style="background:${col}">${u.firstName[0]||'?'}</div>
+        <span>${u.firstName}</span>
+      </div>;
+  } else {
+    R.innerHTML = <button class="tb-btn" onclick="showScreen('s-adminlogin')">Admin</button>
+      <button class="tb-btn" onclick="openModal('loginModal')">Kirish</button>
+      <button class="tb-btn cta" onclick="openModal('regModal')">✦ Boshlash</button>;
+  }
+}
+function aColor(id) {
+  const c=['#6c63ff','#00d4ff','#ff6b6b','#ffd93d','#6bcb77','#f47fff','#ff9f43'];
+  return c[id%c.length];
+}
+
+// ═══════════════════════════════════════════
+//  HERO STATS
+// ═══════════════════════════════════════════
+function updateHeroStats() {
+  const s = id => document.getElementById(id);
+  if(s('hs-users')) s('hs-users').textContent = DB.users.length;
+  if(s('hs-videos')) s('hs-videos').textContent = DB.videos.length;
+  if(s('hs-tests')) s('hs-tests').textContent = DB.tests.length;
+  if(s('hs-results')) s('hs-results').textContent = DB.results.length;
+  renderLandingDirs();
+}
+function renderLandingDirs() {
+  const g = document.getElementById('landingDirGrid');
+  if(!g) return;
+  g.innerHTML = DIRS.map((d,i) => {
+    const vc = DB.videos.filter(v=>v.dir===i).length;
+    const tc = DB.tests.filter(t=>t.dir===i).length;
+    return <div class="dir-card dc-${i}" onclick="openDirFromLanding(${i})">
+      <div class="dir-icon di-${i}">${d.icon}</div>
+      <div class="dir-name">${d.name}</div>
+      <div class="dir-desc">${d.desc}</div>
+      <div class="dir-meta">
+        <span class="chip chip-v">▶️ ${vc} video</span>
+        <span class="chip chip-t">📝 ${tc} test</span>
+      </div>
+    </div>;
+  }).join('');
+}
+function openDirFromLanding(i) {
+  if(!STATE.user) { openModal('regModal'); return; }
+  STATE.activeDir = i;
+  showScreen('s-student');
+  stdTab('courses');
+}
+
+// ═══════════════════════════════════════════
+//  AUTH
+// ═══════════════════════════════════════════
+async function doRegister() {
+  const fn=v('rFname'),ln=v('rLname'),ph=v('rPhone'),em=v('rEmail'),ag=v('rAge'),ct=v('rCity'),dir=v('rDir'),bio=v('rBio');
+  const al = document.getElementById('regAlert');
+  if(!fn!ln!ph){ al.innerHTML=alHtml('err','Ism, familiya va telefon majburiy!'); return; }
+  if(DB.users.find(u=>u.phone===ph)){ al.innerHTML=alHtml('err','Bu telefon raqam allaqachon ro\'yxatdan o\'tgan!'); return; }
+  
+  setBtnLoading('regBtn', true);
+  const user = {id:Date.now(),firstName:fn,lastName:ln,phone:ph,email:em,age:ag,city:ct,direction:dir,bio,date:now(),lastActive:now()};
+  DB.users.push(user);
+  await saveKey('users');
+  setBtnLoading('regBtn', false);
+  
+  STATE.user = user;
+  localStorage.setItem('te3_user', JSON.stringify(user));
+  al.innerHTML = alHtml('ok','Muvaffaqiyatli ro\'yxatdan o\'tdingiz!');
+  setTimeout(()=>{ closeModal('regModal'); showScreen('s-student'); stdTab('home'); clearForm(['rFname','rLname','rPhone','rEmail','rAge','rCity','rBio']); document.getElementById('rDir').value=''; al.innerHTML=''; updateHeroStats(); }, 900);
+}
+
+async function doLogin() {
+  const ph = v('lPhone');
+  const al = document.getElementById('loginAlert');
+  if(!ph){ al.innerHTML=alHtml('err','Telefon raqamni kiriting!'); return; }
+  setBtnLoading('loginBtn', true);
+  // Yangi ma'lumot olish
+  await loadAll();
+  const user = DB.users.find(u=>u.phone===ph);
+  setBtnLoading('loginBtn', false);
+  if(!user){ al.innerHTML=alHtml('err','Bu raqam topilmadi! Avval ro\'yxatdan o\'ting.'); return; }
+  user.lastActive = now();
+  await saveKey('users');
+  STATE.user = user;
+  localStorage.setItem('te3_user', JSON.stringify(user));
+  al.innerHTML = alHtml('ok','Xush kelibsiz, '+user.firstName+'!');
+  setTimeout(()=>{ closeModal('loginModal'); showScreen('s-student'); stdTab('home'); al.innerHTML=''; }, 800);
+}
+
+function doLogout() {
+  STATE.user = null;
+  localStorage.removeItem('te3_user');
+  showScreen('s-landing');
+  updateTopbar();
+}
+
+// ═══════════════════════════════════════════
+//  STUDENT TABS
+// ═══════════════════════════════════════════
+function stdTab(tab) {
+  showScreen('s-student');
+  document.querySelectorAll('[id^="si-"]').forEach(el=>el.classList.remove('active'));
+  const si = document.getElementById('si-'+tab);
+  if(si) si.classList.add('active');
+  const C = document.getElementById('stdContent');
+  if(tab==='home') renderStdHome(C);
+  else if(tab==='courses') renderStdCourses(C);
+  else if(tab==='tests') renderStdTests(C);
+  else if(tab==='results') renderStdResults(C);
+  else if(tab==='profile') renderStdProfile(C);
+}
+
+function renderStdHome(C) {
+  const u = STATE.user;
+  const myR = DB.results.filter(r=>r.userId===u.id);
+  const avg = myR.length ? Math.round(myR.reduce((a,r)=>a+r.score,0)/myR.length) : 0;
+  C.innerHTML = `
+    <div style="margin-bottom:2rem">
+      <div style="font-size:1.6rem;font-weight:800;margin-bottom:0.3rem">Xayrli kun, ${u.firstName}! 👋</div>
+      <div style="color:var(--txt2);font-size:0.9rem">Bugun ham yangi narsalar o'rganamizmi?</div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi kpi-0"><div class="kpi-icon">📚</div><div class="kpi-n">${DB.videos.length}</div><div class="kpi-l">Video darslar</div></div>
+      <div class="kpi kpi-1"><div class="kpi-icon">📝</div><div class="kpi-n">${DB.tests.length}</div><div class="kpi-l">Testlar</div></div>
+      <div class="kpi kpi-2"><div class="kpi-icon">🏆</div><div class="kpi-n">${myR.length}</div><div class="kpi-l">Ishlagan testlar</div></div>
+      <div class="kpi kpi-3"><div class="kpi-icon">⭐️</div><div class="kpi-n">${avg}%</div><div class="kpi-l">O'rtacha ball</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem" class="g2">
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:1.2rem">📚 Yo'nalishlar</div>
+        ${DIRS.map((d,i)=><div onclick="STATE.activeDir=${i};stdTab('courses')" style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+          <span style="font-size:1.2rem">${d.icon}</span>
+          <div style="flex:1;font-size:0.875rem;font-weight:600">${d.name}</div>
+          <span class="chip chip-v">${DB.videos.filter(v=>v.dir===i).length} video</span>
+        </div>).join('')}
+      </div>
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:1.2rem">🏆 So'nggi natijalar</div>
+        ${myR.length===0?<div class="empty"><div class="empty-icon">📝</div><div style="font-size:0.85rem">Hali test ishlamagansiz</div><button class="btn btn-ghost btn-sm" style="margin-top:0.8rem" onclick="stdTab('tests')">Testlarni ko'rish →</button></div>:
+        myR.slice(-5).reverse().map(r=><div style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border)">
+          <div style="flex:1"><div style="font-size:0.85rem;font-weight:600">${r.testName}</div><div style="color:var(--txt2);font-size:0.75rem">${niceDate(r.date)}</div></div>
+          <span class="badge ${r.score>=80?'b-active':r.score>=50?'b-warn':'b-danger'}">${r.score}%</span>
+        </div>).join('')}
+      </div>
+    </div>
+    <style>.g2{grid-template-columns:1fr 1fr}@media(max-width:600px){.g2{grid-template-columns:1fr}}</style>;
+}
+
+function renderStdCourses(C) {
+  if(STATE.activeDir !== null) { renderDirVideos(C, STATE.activeDir); return; }
+  C.innerHTML = 
+    <div style="font-size:1.4rem;font-weight:800;margin-bottom:0.3rem">📚 Kurslar</div>
+    <div style="color:var(--txt2);font-size:0.875rem;margin-bottom:2rem">Yo'nalishni tanlang</div>
+    <div class="dir-grid">${DIRS.map((d,i)=>{
+      const vc=DB.videos.filter(v=>v.dir===i).length, tc=DB.tests.filter(t=>t.dir===i).length;
+      return <div class="dir-card dc-${i}" onclick="STATE.activeDir=${i};renderDirVideos(document.getElementById('stdContent'),${i})">
+        <div class="dir-icon di-${i}">${d.icon}</div>
+        <div class="dir-name">${d.name}</div>
+        <div class="dir-desc">${d.desc}</div>
+        <div class="dir-meta"><span class="chip chip-v">▶️ ${vc} video</span><span class="chip chip-t">📝 ${tc} test</span></div>
+      </div>;
+    }).join('')}</div>;
+}
+
+function renderDirVideos(C, di) {
+  const d = DIRS[di];
+  const vids = DB.videos.filter(v=>v.dir===di);
+  C.innerHTML = 
+    <div class="breadcrumb"><span class="bc-link" onclick="STATE.activeDir=null;renderStdCourses(document.getElementById('stdContent'))">📚 Kurslar</span><span>›</span><span>${d.icon} ${d.name}</span></div>
+    <div style="font-size:1.3rem;font-weight:800;margin-bottom:0.3rem">${d.icon} ${d.name}</div>
+    <div style="color:var(--txt2);font-size:0.875rem;margin-bottom:1.5rem">${d.desc}</div>
+    ${vids.length===0?<div class="empty"><div class="empty-icon">🎬</div><div>Bu yo'nalishda hozircha video yo'q</div></div>:
+    <div class="video-grid">${vids.map(v=><div class="vcard" onclick="openVideoPlayer(${v.id})">
+      <div class="vthumb" style="background:linear-gradient(135deg,#0d0d28,#1a1a45)">
+        <span>${d.icon}</span><div class="vthumb-play">▶️</div>
+      </div>
+      <div class="vbody">
+        <div class="vtitle">${v.title}</div>
+        <div class="vmeta"><span>⏱️ ${v.dur}</span><span>${v.level||''}</span></div>
+        ${v.desc?<div style="color:var(--txt2);font-size:0.78rem;margin-top:0.4rem;line-height:1.5">${v.desc}</div>:''}
+      </div>
+    </div>).join('')}</div>};
+}
+
+function openVideoPlayer(id) {
+  const v = DB.videos.find(x=>x.id===id); if(!v) return;
+  const d = DIRS[v.dir];
+  document.getElementById('videoModalBody').innerHTML = 
+    <div style="font-size:1.1rem;font-weight:800;margin-bottom:1rem">${v.title}</div>
+    <div class="videoplayer">
+      ${v.url?<iframe src="${v.url}" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>
+      :<div class="video-placeholder">📹<div>Video URL qo'shilmagan</div></div>}
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;color:var(--txt2);font-size:0.85rem">
+      <span>⏱️ ${v.dur}</span><span>${d.icon} ${d.name}</span>
+      <span class="chip chip-v">${v.level||''}</span>
+    </div>
+    ${v.desc?<div style="margin-top:0.8rem;color:var(--txt2);font-size:0.875rem;line-height:1.6">${v.desc}</div>:''};
+  openModal('videoModal');
+}
+
+function renderStdTests(C) {
+  C.innerHTML = 
+    <div style="font-size:1.4rem;font-weight:800;margin-bottom:0.3rem">📝 Testlar</div>
+    <div style="color:var(--txt2);font-size:0.875rem;margin-bottom:2rem">Bilimingizni sinab ko'ring</div>
+    ${DB.tests.length===0?<div class="empty"><div class="empty-icon">📝</div><div>Hozircha testlar yo'q</div></div>:
+    <div class="dir-grid">${DB.tests.map(t=>{
+      const d=DIRS[t.dir];
+      const myR=DB.results.filter(r=>r.userId===STATE.user.id&&r.testId===t.id);
+      const best=myR.length?Math.max(...myR.map(r=>r.score)):null;
+      return <div class="dir-card dc-${t.dir}" onclick="startTest(${t.id})">
+        <div class="dir-icon di-${t.dir}">${d.icon}</div>
+        <div class="dir-name">${t.name}</div>
+        <div class="dir-desc">${d.name} • ${t.questions.length} savol</div>
+        <div class="dir-meta">${best!==null?<span class="chip chip-t">✓ Eng yaxshi: ${best}%</span>:'<span class="chip chip-v">Yangi test</span>'}</div>
+      </div>;
+    }).join('')}</div>};
+}
+
+function startTest(id) {
+  STATE.activeTest = DB.tests.find(t=>t.id===id);
+  STATE.testAnswers = {};
+  renderTestPage(document.getElementById('stdContent'));
+}
+
+function renderTestPage(C) {
+  const t = STATE.activeTest;
+  C.innerHTML = 
+    <div class="breadcrumb"><span class="bc-link" onclick="renderStdTests(document.getElementById('stdContent'))">📝 Testlar</span><span>›</span><span>${t.name}</span></div>
+    <div style="font-size:1.2rem;font-weight:800;margin-bottom:0.3rem">${t.name}</div>
+    <div style="color:var(--txt2);font-size:0.875rem;margin-bottom:1.5rem">${t.questions.length} savol</div>
+    <div class="test-pb"><div class="test-pb-fill" id="tpFill" style="width:0%"></div></div>
+    ${t.questions.map((q,qi)=><div class="qcard" id="qc-${qi}">
+      <div class="qnum">Savol ${qi+1} / ${t.questions.length}</div>
+      <div class="qtext">${q.q}</div>
+      <div class="options">${q.opts.map((opt,oi)=><div class="opt" id="opt-${qi}-${oi}" onclick="selOpt(${qi},${oi})">
+        <div class="opt-letter">${String.fromCharCode(65+oi)}</div>${opt}
+      </div>).join('')}</div>
+    </div>).join('')}
+    <button class="btn btn-primary" style="margin-top:1rem" onclick="submitTest()">Testni yakunlash ✓</button>`;
+}
+  function selOpt(qi,oi) {
+  STATE.testAnswers[qi]=oi;
+  STATE.activeTest.questions[qi].opts.forEach((_,i)=>{ const el=document.getElementById(opt-${qi}-${i}); if(el){el.classList.remove('sel');el.querySelector('.opt-letter').style.background='';} });
+  const el=document.getElementById(opt-${qi}-${oi}); if(el) el.classList.add('sel');
+  const fill=document.getElementById('tpFill');
+  if(fill) fill.style.width=(Object.keys(STATE.testAnswers).length/STATE.activeTest.questions.length*100)+'%';
+}
+
+async function submitTest() {
+  const t=STATE.activeTest;
+  let correct=0;
+  t.questions.forEach((q,i)=>{ if(STATE.testAnswers[i]===q.c) correct++; });
+  const score=Math.round(correct/t.questions.length*100);
+  const result={id:Date.now(),userId:STATE.user.id,userName:STATE.user.firstName+' '+STATE.user.lastName,testId:t.id,testName:t.name,dirId:t.dir,score,correct,total:t.questions.length,date:now()};
+  DB.results.push(result);
+  await saveKey('results');
+
+  const C=document.getElementById('stdContent');
+  const cls=score>=80?'r-high':score>=50?'r-mid':'r-low';
+  const emoji=score>=80?'🏆':score>=50?'🥈':'💪';
+  const grade=score>=90?'A — Mukammal':score>=80?'B — Yaxshi':score>=60?'C — Qoniqarli':score>=40?'D — Past':'F — Qoniqarsiz';
+  const msg=score>=80?'Ajoyib! Siz bu mavzuni yaxshi o\'zlashtirgansiz 🎉':score>=50?'Yaxshi urinish! Yana mashq qiling 💡':'Bu mavzuni ko\'proq o\'qishingiz kerak 📚';
+  C.innerHTML=
+    <div class="breadcrumb"><span class="bc-link" onclick="renderStdTests(document.getElementById('stdContent'))">📝 Testlar</span><span>›</span><span>Natija</span></div>
+    <div class="card result-card">
+      <div style="font-size:3rem;margin-bottom:1rem">${emoji}</div>
+      <div class="result-ring ${cls}">${score}%</div>
+      <div style="font-size:1.2rem;font-weight:800;margin-bottom:0.3rem">${grade}</div>
+      <div style="color:var(--txt2);margin-bottom:0.5rem">${correct} / ${t.questions.length} to'g'ri javob</div>
+      <div style="color:var(--txt2);font-size:0.875rem;margin-bottom:2rem">${msg}</div>
+      <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-ghost" onclick="startTest(${t.id})">🔄 Qayta urinish</button>
+        <button class="btn btn-primary" onclick="renderStdTests(document.getElementById('stdContent'))">← Testlar ro'yxati</button>
+      </div>
+    </div>;
+  STATE.activeTest=null; STATE.testAnswers={};
+}
+
+function renderStdResults(C) {
+  const myR=DB.results.filter(r=>r.userId===STATE.user.id);
+  C.innerHTML=
+    <div style="font-size:1.4rem;font-weight:800;margin-bottom:0.3rem">🏆 Natijalarim</div>
+    <div style="color:var(--txt2);font-size:0.875rem;margin-bottom:1.5rem">${myR.length} ta test ishlangan</div>
+    ${myR.length===0?<div class="empty"><div class="empty-icon">🏆</div><div>Hali test ishlamagansiz</div><button class="btn btn-ghost btn-sm" style="margin-top:0.8rem" onclick="stdTab('tests')">Testlarni ko'rish →</button></div>:
+    <div class="tbl-wrap"><table>
+      <tr><th>Test</th><th>Yo'nalish</th><th>Ball</th><th>To'g'ri</th><th>Baho</th><th>Sana</th></tr>
+      ${myR.slice().reverse().map(r=>{
+        const g=r.score>=90?'A':r.score>=80?'B':r.score>=60?'C':r.score>=40?'D':'F';
+        const cls=r.score>=80?'b-active':r.score>=50?'b-warn':'b-danger';
+        return <tr>
+          <td style="font-weight:600">${r.testName}</td>
+          <td>${DIRS[r.dirId]?DIRS[r.dirId].icon+' '+DIRS[r.dirId].name:'—'}</td>
+          <td><div style="font-weight:700;color:${r.score>=80?'var(--c5)':r.score>=50?'var(--c4)':'var(--c3)'}">${r.score}%</div>
+            <div class="score-bar-wrap"><div class="score-bar-fill" style="width:${r.score}%;background:${r.score>=80?'var(--c5)':r.score>=50?'var(--c4)':'var(--c3)'}"></div></div>
+          </td>
+          <td>${r.correct}/${r.total}</td>
+          <td><span class="badge ${cls}">${g}</span></td>
+          <td style="color:var(--txt2);font-size:0.78rem">${niceDate(r.date)}</td>
+        </tr>;
+      }).join('')}
+    </table></div>};
+}
+  function renderStdProfile(C) {
+  const u=STATE.user;
+  const myR=DB.results.filter(r=>r.userId===u.id);
+  const avg=myR.length?Math.round(myR.reduce((a,r)=>a+r.score,0)/myR.length):0;
+  const col=aColor(u.id);
+  C.innerHTML=
+    <div style="font-size:1.4rem;font-weight:800;margin-bottom:1.5rem">👤 Mening Profilim</div>
+    <div class="profile-hero">
+      <div class="profile-avt" style="background:${col}20;border-color:${col};color:${col}">${u.firstName[0]||'?'}</div>
+      <div>
+        <div style="font-size:1.2rem;font-weight:800">${u.firstName} ${u.lastName}</div>
+        <div style="color:var(--txt2);font-size:0.85rem;margin-top:0.3rem">📞 ${u.phone}${u.email?' • 📧 '+u.email:''}${u.city?' • 📍 '+u.city:''}</div>
+        <div style="color:var(--txt2);font-size:0.85rem">🎯 ${u.direction||'Belgilanmagan'} ${u.age?'• '+u.age+' yosh':''}</div>
+      </div>
+    </div>
+    ${u.bio?<div style="background:rgba(108,99,255,0.06);border:1px solid rgba(108,99,255,0.15);border-radius:10px;padding:0.8rem;margin-bottom:1.2rem;font-size:0.875rem;color:var(--txt2)">💬 ${u.bio}</div>:''}
+    <div class="kpi-grid">
+      <div class="kpi kpi-2"><div class="kpi-icon">🏆</div><div class="kpi-n">${myR.length}</div><div class="kpi-l">Ishlagan testlar</div></div>
+      <div class="kpi kpi-3"><div class="kpi-icon">⭐️</div><div class="kpi-n">${avg}%</div><div class="kpi-l">O'rtacha ball</div></div>
+    </div>
+    <div style="color:var(--txt3);font-size:0.78rem;font-family:'JetBrains Mono',monospace;margin-top:0.5rem">Ro'yxatdan o'tgan: ${niceDate(u.date)}</div>;
+}
+
+// ═══════════════════════════════════════════
+//  ADMIN
+// ═══════════════════════════════════════════
+function tryAdminLogin() {
+  const pass=document.getElementById('admPassInput').value;
+  const al=document.getElementById('adminLoginAlert');
+  if(pass===DB.settings.adminPass){
+    STATE.adminIn=true; sessionStorage.setItem('te3_adm','1');
+    showScreen('s-admin'); admTab('dashboard');
+    document.getElementById('admPassInput').value=''; al.innerHTML='';
+  } else {
+    al.innerHTML=alHtml('err','Parol noto\'g\'ri!');
+  }
+}
+function admLogout() {
+  STATE.adminIn=false; sessionStorage.removeItem('te3_adm');
+  showScreen('s-landing'); updateTopbar();
+}
+
+function admTab(tab) {
+  showScreen('s-admin');
+  document.querySelectorAll('[id^="ai-"]').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById('ai-'+tab); if(el) el.classList.add('active');
+  const C=document.getElementById('admContent');
+  if(tab==='dashboard') renderAdmDashboard(C);
+  else if(tab==='users') renderAdmUsers(C);
+  else if(tab==='videos') renderAdmVideos(C);
+  else if(tab==='tests-m') renderAdmTests(C);
+  else if(tab==='results-m') renderAdmResults(C);
+  else if(tab==='messages') renderAdmMessages(C);
+}
+
+function renderAdmDashboard(C) {
+  const avgAll=DB.results.length?Math.round(DB.results.reduce((a,r)=>a+r.score,0)/DB.results.length):0;
+  C.innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+      <div><div style="font-size:1.5rem;font-weight:800">📊 Dashboard</div><div style="color:var(--txt2);font-size:0.875rem">Real-time statistika</div></div>
+      <button class="btn btn-ghost btn-sm" onclick="refreshData()">🔄 Yangilash</button>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi kpi-0"><div class="kpi-icon">👥</div><div class="kpi-n">${DB.users.length}</div><div class="kpi-l">Jami talabalar</div></div>
+      <div class="kpi kpi-1"><div class="kpi-icon">🎬</div><div class="kpi-n">${DB.videos.length}</div><div class="kpi-l">Video darslar</div></div>
+      <div class="kpi kpi-2"><div class="kpi-icon">📝</div><div class="kpi-n">${DB.tests.length}</div><div class="kpi-l">Testlar</div></div>
+      <div class="kpi kpi-3"><div class="kpi-icon">⭐️</div><div class="kpi-n">${avgAll}%</div><div class="kpi-l">O'rtacha ball</div></div>
+      </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem" class="g2">
+      <div class="tbl-wrap">
+        <div class="tbl-head"><div class="tbl-title">👥 So'nggi talabalar</div></div>
+        ${DB.users.length===0?<div class="empty"><div class="empty-icon">👥</div><div>Hali talaba yo'q</div></div>:
+        `<table><tr><th>Ism</th><th>Yo'nalish</th><th>Sana</th></tr>
+        ${DB.users.slice(-5).reverse().map(u=><tr>
+          <td><div class="ucell"><div class="avt" style="background:${aColor(u.id)}20;color:${aColor(u.id)}">${u.firstName[0]}</div>
+          <div><div class="uname">${u.firstName} ${u.lastName}</div><div class="uinfo">${u.phone}</div></div></div></td>
+          <td style="font-size:0.8rem">${u.direction||'—'}</td>
+          <td style="color:var(--txt2);font-size:0.78rem">${niceDate(u.date)}</td>
+        </tr>).join('')}</table>}
+      </div>
+      <div class="tbl-wrap">
+        <div class="tbl-head"><div class="tbl-title">🏆 So'nggi natijalar</div></div>
+        ${DB.results.length===0?<div class="empty"><div class="empty-icon">🏆</div><div>Natijalar yo'q</div></div>:
+        <table><tr><th>Talaba</th><th>Test</th><th>Ball</th></tr>
+        ${DB.results.slice(-5).reverse().map(r=><tr>
+          <td>${r.userName}</td>
+          <td style="font-size:0.8rem;color:var(--txt2)">${r.testName}</td>
+          <td><span class="badge ${r.score>=80?'b-active':r.score>=50?'b-warn':'b-danger'}">${r.score}%</span></td>
+        </tr>).join('')}</table>}
+      </div>
+    </div>
+    <style>.g2{grid-template-columns:1fr 1fr}@media(max-width:700px){.g2{grid-template-columns:1fr}}</style>;
+}
+
+async function refreshData() {
+  const C=document.getElementById('admContent');
+  C.innerHTML=<div class="loader"><div class="spinner"></div>Ma'lumotlar yangilanmoqda...</div>;
+  await loadAll();
+  admTab('dashboard');
+}
+
+function renderAdmUsers(C) {
+  C.innerHTML=
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+      <div><div style="font-size:1.4rem;font-weight:800">👥 Talabalar</div><div style="color:var(--txt2);font-size:0.875rem">${DB.users.length} ta ro'yxatdan o'tgan</div></div>
+      <button class="btn btn-ghost btn-sm" onclick="refreshAndShow('users')">🔄 Yangilash</button>
+    </div>
+    ${DB.users.length===0?<div class="empty"><div class="empty-icon">👥</div><div>Hali hech kim ro'yxatdan o'tmagan</div></div>:
+    <div class="tbl-wrap"><table>
+      <tr><th>#</th><th>Talaba</th><th>Telefon</th><th>Email</th><th>Yo'nalish</th><th>Shahar</th><th>Yosh</th><th>Sana</th><th>Amal</th></tr>
+      ${DB.users.map((u,i)=><tr>
+        <td style="color:var(--txt3);font-size:0.75rem">${i+1}</td>
+        <td><div class="ucell">
+          <div class="avt" style="background:${aColor(u.id)}20;color:${aColor(u.id)}">${u.firstName[0]}</div>
+          <div>
+            <div class="uname">${u.firstName} ${u.lastName}</div>
+            ${u.bio?<div class="uinfo" style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${u.bio}</div>:''}
+          </div>
+        </div></td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.8rem">${u.phone}</td>
+        <td style="color:var(--txt2);font-size:0.8rem">${u.email||'—'}</td>
+        <td><span class="chip chip-v" style="font-size:0.7rem">${u.direction||'—'}</span></td>
+        <td style="color:var(--txt2);font-size:0.8rem">${u.city||'—'}</td>
+        <td style="color:var(--txt2);font-size:0.8rem">${u.age||'—'}</td>
+        <td style="color:var(--txt3);font-size:0.75rem">${niceDate(u.date)}</td>
+        <td><div style="display:flex;gap:0.3rem">
+          <button class="btn btn-sm" style="background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.2);color:var(--c1)" onclick="openContactModal(${u.id})">💬</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteUser(${u.id})">🗑</button>
+        </div></td>
+      </tr>).join('')}
+    </table></div>};
+}
+
+async function deleteUser(id) {
+  if(!confirm('Foydalanuvchini o\'chirish?')) return;
+  DB.users=DB.users.filter(u=>u.id!==id);
+  await saveKey('users');
+  renderAdmUsers(document.getElementById('admContent'));
+}
+     function openContactModal(id) {
+  const u=DB.users.find(u=>u.id===id); if(!u) return;
+  const msgs=DB.messages.filter(m=>m.userId===id);
+  const col=aColor(id);
+  document.getElementById('contactModalBody').innerHTML=
+    <div style="font-size:1.2rem;font-weight:800;margin-bottom:1.2rem">💬 Bog'lanish</div>
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;padding:1rem;background:var(--bg2);border-radius:12px">
+      <div class="avt" style="width:50px;height:50px;font-size:1.3rem;background:${col}20;color:${col}">${u.firstName[0]}</div>
+      <div>
+        <div style="font-weight:700">${u.firstName} ${u.lastName}</div>
+        <div style="color:var(--txt2);font-size:0.85rem">📞 ${u.phone}${u.email?' • '+u.email:''}${u.city?' • '+u.city:''}</div>
+        <div style="color:var(--txt2);font-size:0.8rem">🎯 ${u.direction||'—'} ${u.age?'• '+u.age+' yosh':''}</div>
+      </div>
+    </div>
+    ${u.bio?<div style="background:rgba(108,99,255,0.06);border:1px solid rgba(108,99,255,0.15);border-radius:10px;padding:0.8rem;margin-bottom:1rem;font-size:0.875rem;color:var(--txt2)">💬 "${u.bio}"</div>:''}
+    <div style="font-weight:600;font-size:0.85rem;margin-bottom:0.6rem">Eslatmalar (${msgs.length})</div>
+    <div style="max-height:140px;overflow-y:auto;margin-bottom:1rem">
+      ${msgs.length?msgs.map(m=><div class="msg-bubble">${m.msg}<div class="msg-time">${niceDate(m.date)}</div></div>).join(''):'<div style="color:var(--txt3);font-size:0.85rem">Eslatma yo\'q</div>'}
+    </div>
+    <div class="fg"><label class="fl">Yangi eslatma</label><textarea class="fi" id="cMsgInput" placeholder="Xabar..."></textarea></div>
+    <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+      ${u.phone?<a href="tel:${u.phone}" class="btn btn-success btn-sm" style="text-decoration:none">📞 Qo'ng'iroq</a>:''}
+      ${u.email?<a href="mailto:${u.email}" class="btn btn-sm" style="background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.2);color:var(--c1);text-decoration:none">📧 Email</a>:''}
+      <button class="btn btn-primary btn-sm" onclick="saveNote(${id})">💾 Saqlash</button>
+    </div>;
+  openModal('contactModal');
+}
+
+async function saveNote(uid) {
+  const txt=document.getElementById('cMsgInput').value.trim();
+  if(!txt) return;
+  DB.messages.push({id:Date.now(),userId:uid,msg:txt,date:now()});
+  await saveKey('messages');
+  openContactModal(uid);
+}
+
+function renderAdmVideos(C) {
+  C.innerHTML=
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+      <div><div style="font-size:1.4rem;font-weight:800">🎬 Videolar</div><div style="color:var(--txt2);font-size:0.875rem">${DB.videos.length} ta video dars</div></div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="btn btn-ghost btn-sm" onclick="refreshAndShow('videos')">🔄</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('addVideoModal')">+ Video qo'shish</button>
+      </div>
+    </div>
+    ${DIRS.map((d,di)=>{
+      const vids=DB.videos.filter(v=>v.dir===di);
+      return <div style="margin-bottom:2rem">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem">
+          <span style="font-size:1.2rem">${d.icon}</span><span style="font-weight:700">${d.name}</span>
+          <span class="chip chip-v">${vids.length}</span>
+        </div>
+        ${vids.length===0?'<div style="color:var(--txt3);font-size:0.85rem;padding:0.5rem 0">Video yo\'q</div>':
+        <div class="tbl-wrap"><table>
+          <tr><th>Sarlavha</th><th>Daraja</th><th>Davomiylik</th><th>Sana</th><th>Amal</th></tr>
+          ${vids.map(v=><tr>
+            <td style="font-weight:600">${v.title}</td>
+            <td><span class="chip chip-t" style="font-size:0.7rem">${v.level||'—'}</span></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:0.8rem">${v.dur}</td>
+            <td style="color:var(--txt2);font-size:0.78rem">${niceDate(v.date)}</td>
+            <td><button class="btn btn-sm btn-danger" onclick="deleteVideo(${v.id})">🗑</button></td>
+          </tr>).join('')}
+        </table></div>}
+      </div>;
+    }).join('')};
+}
+
+async function deleteVideo(id) {
+  if(!confirm('Videoni o\'chirish?')) return;
+  DB.videos=DB.videos.filter(v=>v.id!==id);
+  await saveKey('videos');
+  renderAdmVideos(document.getElementById('admContent'));
+}
+
+async function doAddVideo() {
+  const dir=parseInt(document.getElementById('avDir').value);
+  const title=v('avTitle'),url=v('avUrl'),dur=v('avDur')||'0:00',level=v('avLevel'),desc=v('avDesc');
+  const al=document.getElementById('avAlert');
+  if(!title){ al.innerHTML=alHtml('err','Sarlavha majburiy!'); return; }
+  setBtnLoading('avBtn',true);
+  DB.videos.push({id:Date.now(),dir,title,url,dur,level,desc,date:now()});
+  await saveKey('videos');
+  setBtnLoading('avBtn',false);
+  al.innerHTML=alHtml('ok','Video muvaffaqiyatli qo\'shildi!');
+  setTimeout(()=>{ closeModal('addVideoModal'); al.innerHTML=''; renderAdmVideos(document.getElementById('admContent')); },1000);
+}
+
+function renderAdmTests(C) {
+  C.innerHTML=
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+      <div><div style="font-size:1.4rem;font-weight:800">📝 Testlar</div><div style="color:var(--txt2);font-size:0.875rem">${DB.tests.length} ta test</div></div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="btn btn-ghost btn-sm" onclick="refreshAndShow('tests-m')">🔄</button>
+        <button class="btn btn-primary btn-sm" onclick="openAddTestModal()">+ Test yaratish</button>
+      </div>
+    </div>
+    ${DB.tests.length===0?<div class="empty"><div class="empty-icon">📝</div><div>Hali test yo'q</div></div>:
+    <div class="tbl-wrap"><table>
+      <tr><th>Test nomi</th><th>Yo'nalish</th><th>Savollar</th><th>Urinishlar</th><th>O'rtacha</th><th>Sana</th><th>Amal</th></tr>
+      ${DB.tests.map(t=>{
+        const d=DIRS[t.dir];
+        const tR=DB.results.filter(r=>r.testId===t.id);
+        const avg=tR.length?Math.round(tR.reduce((a,r)=>a+r.score,0)/tR.length):0;
+        return <tr>
+          <td style="font-weight:700">${t.name}</td>
+          <td>${d.icon} ${d.name}</td>
+          <td>${t.questions.length}</td>
+          <td>${tR.length}</td>
+          <td><span class="badge ${avg>=80?'b-active':avg>=50?'b-warn':'b-danger'}">${tR.length?avg+'%':'—'}</span></td>
+          <td style="color:var(--txt2);font-size:0.78rem">${niceDate(t.date)}</td>
+          <td><button class="btn btn-sm btn-danger" onclick="deleteTest(${t.id})">🗑</button></td>
+        </tr>;
+      }).join('')}
+    </table></div>};
+}
+
+async function deleteTest(id) {
+  if(!confirm('Testni o\'chirish?')) return;
+  DB.tests=DB.tests.filter(t=>t.id!==id);
+  await saveKey('tests');
+  renderAdmTests(document.getElementById('admContent'));
+}
+
+function renderAdmResults(C) {
+  C.innerHTML=
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+      <div><div style="font-size:1.4rem;font-weight:800">🏆 Test Natijalari</div><div style="color:var(--txt2);font-size:0.875rem">${DB.results.length} ta natija</div></div>
+      <button class="btn btn-ghost btn-sm" onclick="refreshAndShow('results-m')">🔄 Yangilash</button>
+    </div>
+    ${DB.results.length===0?<div class="empty"><div class="empty-icon">🏆</div><div>Hali natija yo'q</div></div>:
+    <div class="tbl-wrap"><table>
+      <tr><th>Talaba</th><th>Test</th><th>Yo'nalish</th><th>Ball</th><th>To'g'ri</th><th>Baho</th><th>Sana</th></tr>v
+      ${DB.results.slice().reverse().map(r=>{
+        const g=r.score>=90?'A':r.score>=80?'B':r.score>=60?'C':r.score>=40?'D':'F';
+        const cls=r.score>=80?'b-active':r.score>=50?'b-warn':'b-danger';
+        return <tr>
+          <td style="font-weight:600">${r.userName}</td>
+          <td>${r.testName}</td>
+          <td style="font-size:0.8rem">${DIRS[r.dirId]?DIRS[r.dirId].icon+' '+DIRS[r.dirId].name:'—'}</td>
+          <td><div style="font-weight:700;color:${r.score>=80?'var(--c5)':r.score>=50?'var(--c4)':'var(--c3)'}">${r.score}%</div>
+            <div class="score-bar-wrap"><div class="score-bar-fill" style="width:${r.score}%;background:${r.score>=80?'var(--c5)':r.score>=50?'var(--c4)':'var(--c3)'}"></div></div>
+          </td>
+          <td>${r.correct}/${r.total}</td>
+          <td><span class="badge ${cls}">${g}</span></td>
+          <td style="color:var(--txt2);font-size:0.78rem">${niceDate(r.date)}</td>
+        </tr>;
+      }).join('')}
+    </table></div>};
+}
+
+function renderAdmMessages(C) {
+  C.innerHTML=
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+      <div><div style="font-size:1.4rem;font-weight:800">💬 Eslatmalar</div><div style="color:var(--txt2);font-size:0.875rem">${DB.messages.length} ta yozuv</div></div>
+      <button class="btn btn-ghost btn-sm" onclick="refreshAndShow('messages')">🔄</button>
+    </div>
+    ${DB.messages.length===0?<div class="empty"><div class="empty-icon">💬</div><div>Eslatmalar yo'q</div></div>:
+    <div class="tbl-wrap"><table>
+      <tr><th>Talaba</th><th>Xabar</th><th>Sana</th></tr>
+      ${DB.messages.slice().reverse().map(m=>{
+        const u=DB.users.find(u=>u.id===m.userId);
+        return <tr><td>${u?u.firstName+' '+u.lastName:'—'}</td><td style="color:var(--txt2)">${m.msg}</td><td style="color:var(--txt3);font-size:0.78rem">${niceDate(m.date)}</td></tr>;
+      }).join('')}
+    </table></div>};
+}
+
+async function refreshAndShow(tab) {
+  const C=document.getElementById('admContent');
+  C.innerHTML=<div class="loader"><div class="spinner"></div>Yangilanmoqda...</div>;
+  await loadAll();
+  admTab(tab);
+}
+
+// ═══ TEST CREATOR ═══
+let qCount=0;
+function openAddTestModal() {
+  qCount=0;
+  document.getElementById('atName').value='';
+  document.getElementById('atDir').value='0';
+  document.getElementById('atQuestions').innerHTML='';
+  document.getElementById('atAlert').innerHTML='';
+  addQField(); openModal('addTestModal');
+}
+function addQField() {
+  const qi=qCount++;
+  const wrap=document.getElementById('atQuestions');
+  const div=document.createElement('div');
+  div.className='qfield'; div.id=qf-${qi};
+  div.innerHTML=<div class="qfield-head">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--c1);font-weight:600">Savol ${qi+1}</div>
+    <button onclick="document.getElementById('qf-${qi}').remove()" style="background:none;border:none;color:var(--c3);cursor:pointer">✕</button>
+  </div>
+  <div class="fg"><input class="fi" id="qt-${qi}" placeholder="Savol matni..."></div>
+  ${[0,1,2,3].map(oi=><div class="opt-row">
+    <input type="radio" name="qc-${qi}" value="${oi}" id="qr-${qi}-${oi}">
+    <input class="fi" id="qo-${qi}-${oi}" placeholder="Variant ${String.fromCharCode(65+oi)}" style="flex:1;padding:0.5rem 0.8rem">
+    <label for="qr-${qi}-${oi}" style="font-size:0.8rem;color:var(--c5);flex-shrink:0;cursor:pointer">✓ To'g'ri</label>
+  </div>).join('')};
+  wrap.appendChild(div);
+}
+async function doSaveTest() {
+  const name=v('atName');
+  const dir=parseInt(document.getElementById('atDir').value);
+  const al=document.getElementById('atAlert');
+  if(!name){ al.innerHTML=alHtml('err','Test nomi majburiy!'); return; }
+  const questions=[];
+  for(let i=0;i<qCount;i++){
+    const qf=document.getElementById(qf-${i}); if(!qf) continue;
+    const qt=v(qt-${i});
+    const opts=[0,1,2,3].map(oi=>v(qo-${i}-${oi})||'');
+    const cr=document.querySelector(input[name="qc-${i}"]:checked);
+    if(qt) questions.push({q:qt,opts,c:cr?parseInt(cr.value):0});
+  }
+  if(questions.length===0){ al.innerHTML=alHtml('err','Kamida 1 savol qo\'shing!'); return; }
+  setBtnLoading('atBtn',true);
+  DB.tests.push({id:Date.now(),dir,name,questions,date:now()});
+  await saveKey('tests');
+  setBtnLoading('atBtn',false);
+  al.innerHTML=alHtml('ok','Test saqlandi!');
+  setTimeout(()=>{ closeModal('addTestModal'); al.innerHTML=''; renderAdmTests(document.getElementById('admContent')); },1000);
+}
+
+// ═══════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════
+function v(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+function openModal(id){ document.getElementById(id).classList.add('show'); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+function alHtml(t,m){ return <div class="alert al-${t==='ok'?'ok':'err'}">${t==='ok'?'✓':'⚠️'} ${m}</div>; }
+function clearForm(ids){ ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; }); }
+function setBtnLoading(id, loading) {
+  const el=document.getElementById(id); if(!el) return;
+  el.disabled=loading;
+  el.innerHTML=loading?'<div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0 auto"></div>':el.dataset.txt||el.innerHTML;
+  if(!loading && el.dataset.txt) el.innerHTML=el.dataset.txt;
+}
+
+document.querySelectorAll('.overlay').forEach(o=>{
+  o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); });
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll('.overlay.show').forEach(o=>o.classList.remove('show')); });
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+async function init() {
+  updateTopbar();
+  // Show loading state
+  if(STATE.adminIn) showScreen('s-admin');
+  else if(STATE.user) showScreen('s-student');
+  else showScreen('s-landing');
+
+  // Load data from JSONbin
+  await loadAll();
+
+  // Re-render after data loads
+  if(STATE.adminIn) { admTab('dashboard'); }
+  else if(STATE.user) { stdTab('home'); }
+  else { renderLandingDirs(); updateHeroStats(); }
+}
+init();
+</script>
+</body>
+</html>const qf=document.getElementById(qf-${i}); if(!qf) continue;
+    const qt=v(qt-${i});
+    const opts=[0,1,2,3].map(oi=>v(qo-${i}-${oi})||'');
+    const cr=document.querySelector(input[name="qc-${i}"]:checked);
+    if(qt) questions.push({q:qt,opts,c:cr?parseInt(cr.value):0});
+  }
+  if(questions.length===0){ al.innerHTML=alHtml('err','Kamida 1 savol qo\'shing!'); return; }
+  setBtnLoading('atBtn',true);
+  DB.tests.push({id:Date.now(),dir,name,questions,date:now()});
+  await saveKey('tests');
+  setBtnLoading('atBtn',false);
+  al.innerHTML=alHtml('ok','Test saqlandi!');
+  setTimeout(()=>{ closeModal('addTestModal'); al.innerHTML=''; renderAdmTests(document.getElementById('admContent')); },1000);
+}
+
+// ═══════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════
+function v(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+function openModal(id){ document.getElementById(id).classList.add('show'); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+function alHtml(t,m){ return <div class="alert al-${t==='ok'?'ok':'err'}">${t==='ok'?'✓':'⚠️'} ${m}</div>; }
+function clearForm(ids){ ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; }); }
+function setBtnLoading(id, loading) {
+  const el=document.getElementById(id); if(!el) return;
+  el.disabled=loading;
+  el.innerHTML=loading?'<div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0 auto"></div>':el.dataset.txt||el.innerHTML;
+  if(!loading && el.dataset.txt) el.innerHTML=el.dataset.txt;
+}
+
+document.querySelectorAll('.overlay').forEach(o=>{
+  o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); });
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll('.overlay.show').forEach(o=>o.classList.remove('show')); });
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+async function init() {
+  updateTopbar();
+  // Show loading state
+  if(STATE.adminIn) showScreen('s-admin');
+  else if(STATE.user) showScreen('s-student');
+  else showScreen('s-landing');
+
+  // Load data from JSONbin
+  await loadAll();
+
+  // Re-render after data loads
+  if(STATE.adminIn) { admTab('dashboard'); }
+  else if(STATE.user) { stdTab('home'); }
+  else { renderLandingDirs(); updateHeroStats(); }
+}
+init();
+</script>
+</body>
+</html>const qf=document.getElementById(qf-${i}); if(!qf) continue;
+    const qt=v(qt-${i});
+    const opts=[0,1,2,3].map(oi=>v(qo-${i}-${oi})||'');
+    const cr=document.querySelector(input[name="qc-${i}"]:checked);
+    if(qt) questions.push({q:qt,opts,c:cr?parseInt(cr.value):0});
+  }
+  if(questions.length===0){ al.innerHTML=alHtml('err','Kamida 1 savol qo\'shing!'); return; }
+  setBtnLoading('atBtn',true);
+  DB.tests.push({id:Date.now(),dir,name,questions,date:now()});
+  await saveKey('tests');
+  setBtnLoading('atBtn',false);
+  al.innerHTML=alHtml('ok','Test saqlandi!');
+  setTimeout(()=>{ closeModal('addTestModal'); al.innerHTML=''; renderAdmTests(document.getElementById('admContent')); },1000);
+}
+
+// ═══════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════
+function v(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+function openModal(id){ document.getElementById(id).classList.add('show'); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+function alHtml(t,m){ return <div class="alert al-${t==='ok'?'ok':'err'}">${t==='ok'?'✓':'⚠️'} ${m}</div>; }
+function clearForm(ids){ ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; }); }
+function setBtnLoading(id, loading) {
+  const el=document.getElementById(id); if(!el) return;
+  el.disabled=loading;
+  el.innerHTML=loading?'<div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0 auto"></div>':el.dataset.txt||el.innerHTML;
+  if(!loading && el.dataset.txt) el.innerHTML=el.dataset.txt;
+}
+
+document.querySelectorAll('.overlay').forEach(o=>{
+  o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); });
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll('.overlay.show').forEach(o=>o.classList.remove('show')); });
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+async function init() {
+  updateTopbar();
+  // Show loading state
+  if(STATE.adminIn) showScreen('s-admin');
+  else if(STATE.user) showScreen('s-student');
+  else showScreen('s-landing');
+
+  // Load data from JSONbin
+  await loadAll();
+
+  // Re-render after data loads
+  if(STATE.adminIn) { admTab('dashboard'); }
+  else if(STATE.user) { stdTab('home'); }
+  else { renderLandingDirs(); updateHeroStats(); }
+}
+init();
+</script>
+</body>
+</html>
+  
