@@ -469,165 +469,184 @@ select.fi{cursor:pointer}
  
 <script>
 // ═══════════════════════════════════════════
-// JSONBIN CONFIG
+//  JSONBIN CONFIG — BITTA BIN
 // ═══════════════════════════════════════════
 const API_KEY = '$2a$10$MEPoqzYaHU3hRJ4mosQLfODl58hT7on09IaUBbB43PM3VZt2IACmG';
 const BASE_URL = 'https://api.jsonbin.io/v3/b';
 const HEADERS = {
-    'Content-Type': 'application/json',
-    'X-Master-Key': API_KEY
+  'Content-Type': 'application/json',
+  'X-Master-Key': API_KEY
 };
-
-// Bin IDs - birinchi ishga tushganda yaratiladi
-let BINS = JSON.parse(localStorage.getItem('te3_bins') || '{}');
-
+// BITTA umumiy bin ID — barcha qurilmalar shu ID dan foydalanadi
+const SHARED_BIN_ID = '69b99f60b7ec241ddc790cf2'; // videos bin ni asosiy sifatida ishlatamiz
+// Alohida binlar (mavjud)
+const FIXED_BINS = {
+  videos:   '69b99f60b7ec241ddc790cf2',
+  tests:    '69b99f62c3097a1dd533c19c',
+  settings: '69b99f64c3097a1dd533c1a8'
+};
+let BINS = { ...FIXED_BINS };
+ 
 // ═══════════════════════════════════════════
-// LOCAL CACHE
+//  LOCAL CACHE
 // ═══════════════════════════════════════════
 let DB = {
-    users: [],
-    videos: [],
-    tests: [],
-    results: [],
-    messages: [],
-    settings: { adminPass: 'admin123' }
+  users: [],
+  videos: [],
+  tests: [],
+  results: [],
+  messages: [],
+  settings: { adminPass: 'admin123' }
 };
-
+ 
 let STATE = {
-    user: JSON.parse(localStorage.getItem('te3_user') || 'null'),
-    adminIn: sessionStorage.getItem('te3_adm') === '1',
-    activeDir: null,
-    activeTest: null,
-    testAnswers: {},
-    syncing: false
+  user: JSON.parse(localStorage.getItem('te3_user') || 'null'),
+  adminIn: sessionStorage.getItem('te3_adm') === '1',
+  activeDir: null,
+  activeTest: null,
+  testAnswers: {},
+  syncing: false
 };
-
+ 
 // ═══════════════════════════════════════════
-// DIRECTIONS
+//  DIRECTIONS
 // ═══════════════════════════════════════════
 const DIRS = [
-    {name:'Frontend',icon:'🌐',desc:'HTML, CSS, JavaScript, React — zamonaviy web interfeys yarating'},
-    {name:'Backend',icon:'⚙️',desc:'Python, Node.js, PHP — server va ma\'lumotlar bazasi'},
-    {name:'Mobile',icon:'📱',desc:'Flutter, React Native — mobil ilova ishlab chiqish'},
-    {name:'Cybersecurity',icon:'🔐',desc:'Tarmoq xavfsizligi, penetration testing, kriptografiya'},
-    {name:'Data Science',icon:'🤖',desc:'Machine Learning, AI, Python analytics, neural networks'},
+  {name:'Frontend',icon:'🌐',desc:'HTML, CSS, JavaScript, React — zamonaviy web interfeys yarating'},
+  {name:'Backend',icon:'⚙️',desc:'Python, Node.js, PHP — server va ma\'lumotlar bazasi'},
+  {name:'Mobile',icon:'📱',desc:'Flutter, React Native — mobil ilova ishlab chiqish'},
+  {name:'Cybersecurity',icon:'🔐',desc:'Tarmoq xavfsizligi, penetration testing, kriptografiya'},
+  {name:'Data Science',icon:'🤖',desc:'Machine Learning, AI, Python analytics, neural networks'},
 ];
-
+ 
 // ═══════════════════════════════════════════
-// JSONBIN API
+//  JSONBIN API
 // ═══════════════════════════════════════════
 async function createBin(name, data) {
-    try {
-        const res = await fetch(BASE_URL, {
-            method: 'POST',
-            headers: { ...HEADERS, 'X-Bin-Name': name, 'X-Bin-Private': 'false' },
-            body: JSON.stringify(data)
-        });
-        const json = await res.json();
-        return json.metadata?.id || null;
-    } catch(e) {
-        return null;
-    }
+  try {
+    const res = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: { ...HEADERS, 'X-Bin-Name': name, 'X-Bin-Private': 'false' },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    return json.metadata?.id || null;
+  } catch(e) { return null; }
 }
-
+ 
 async function getBin(id) {
-    try {
-        const res = await fetch(`${BASE_URL}/${id}/latest`, { headers: HEADERS });
-        const json = await res.json();
-        return json.record || null;
-    } catch(e) {
-        return null;
-    }
+  try {
+    const res = await fetch(`${BASE_URL}/${id}/latest`, { headers: HEADERS });
+    const json = await res.json();
+    return json.record || null;
+  } catch(e) { return null; }
 }
-
+ 
 async function updateBin(id, data) {
-    try {
-        const res = await fetch(`${BASE_URL}/${id}`, {
-            method: 'PUT',
-            headers: HEADERS,
-            body: JSON.stringify(data)
-        });
-        return res.ok;
-    } catch(e) {
-        return false;
-    }
+  try {
+    const res = await fetch(`${BASE_URL}/${id}`, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify(data)
+    });
+    return res.ok;
+  } catch(e) { return false; }
 }
-
-async function ensureBin(key, defaultData) {
-    if (!BINS[key]) {
-        const id = await createBin('techedu_' + key, defaultData);
-        if (id) {
-            BINS[key] = id;
-            localStorage.setItem('te3_bins', JSON.stringify(BINS));
-        }
-    }
-    return BINS[key];
-}
-
+ 
 // ═══════════════════════════════════════════
-// DATA OPERATIONS
+//  DATA OPERATIONS — BITTA MAIN BIN
 // ═══════════════════════════════════════════
+// Barcha ma'lumotlar bitta bin da: {users,videos,tests,results,messages,settings}
+const MAIN_BIN = '69b99f60b7ec241ddc790cf2';
+ 
 async function loadAll() {
-    const keys = ['users','videos','tests','results','messages','settings'];
-    const defaults = {
-        users: [],
-        videos: defaultVideos(),
-        tests: defaultTests(),
-        results: [],
-        messages: [],
-        settings: { adminPass: 'admin123' }
-    };
-    for (const key of keys) {
-        const id = await ensureBin(key, defaults[key]);
-        if (id) {
-            const data = await getBin(id);
-            DB[key] = data !== null ? data : defaults[key];
-        } else {
-            DB[key] = defaults[key];
-        }
+  try {
+    const res = await fetch(`${BASE_URL}/${MAIN_BIN}/latest`, { headers: HEADERS });
+    const json = await res.json();
+    const data = json.record;
+    if (data && typeof data === 'object') {
+      // Eski format: bin ichida faqat massiv bo'lsa (videos bin edi)
+      // Yangi format: {users, videos, tests, results, messages, settings}
+      if (Array.isArray(data)) {
+        // Eski format - videos massivi edi, endi yangi formatga o'tkazamiz
+        DB.videos = data.length ? data : defaultVideos();
+      } else {
+        if (Array.isArray(data.users))    DB.users    = data.users;
+        if (Array.isArray(data.videos))   DB.videos   = data.videos;
+        if (Array.isArray(data.tests))    DB.tests    = data.tests;
+        if (Array.isArray(data.results))  DB.results  = data.results;
+        if (Array.isArray(data.messages)) DB.messages = data.messages;
+        if (data.settings)                DB.settings = data.settings;
+      }
     }
+    if (!DB.videos || !DB.videos.length) DB.videos = defaultVideos();
+    if (!DB.tests  || !DB.tests.length)  DB.tests  = defaultTests();
     updateHeroStats();
+    // Har doim yangi to'liq formatda saqlash
+    await saveAll();
+  } catch(e) {
+    console.error('loadAll error:', e);
+    DB.videos = defaultVideos();
+    DB.tests  = defaultTests();
+    updateHeroStats();
+  }
 }
-
+ 
+async function saveAll() {
+  try {
+    await fetch(`${BASE_URL}/${MAIN_BIN}`, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify({
+        users: DB.users,
+        videos: DB.videos,
+        tests: DB.tests,
+        results: DB.results,
+        messages: DB.messages,
+        settings: DB.settings
+      })
+    });
+  } catch(e) { console.error('saveAll error:', e); }
+}
+ 
 async function saveKey(key) {
-    const id = BINS[key];
-    if (id) await updateBin(id, DB[key]);
+  await saveAll();
 }
-
+ 
+function ensureBin(key, defaultData) { return MAIN_BIN; }
+ 
 // ═══════════════════════════════════════════
-// DEFAULT DATA
+//  DEFAULT DATA
 // ═══════════════════════════════════════════
 function defaultVideos() {
-    return [
-        {id:1,dir:0,title:'HTML teglari bilan tanishuv',url:'https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level:"Boshlang'ich",desc:'HTML tuzilishi va asosiy teglar',date:now()},
-        {id:2,dir:0,title:'CSS Flexbox va Grid',url:'https://www.youtube.com/embed/JJSoEo8JSnc',dur:'22:15',level:"Boshlang'ich",desc:'Layout qilishni o\'rganamiz',date:now()},
-        {id:3,dir:0,title:'JavaScript kirish',url:'https://www.youtube.com/embed/W6NZfCO5SIk',dur:'18:40',level:"Boshlang'ich",desc:'JS asoslari va o\'zgaruvchilar',date:now()},
-        {id:4,dir:1,title:'Python — birinchi qadamlar',url:'https://www.youtube.com/embed/_uQrJ0TkZlc',dur:'25:00',level:"Boshlang'ich",desc:'Python o\'rnatish va sintaksis',date:now()},
-        {id:5,dir:2,title:'Flutter asoslari',url:'https://www.youtube.com/embed/1gDhl4leEzA',dur:'28:10',level:"Boshlang'ich",desc:'Flutter bilan mobil ilova',date:now()},
-        {id:6,dir:3,title:'Kiberxavfsizlik kirish',url:'https://www.youtube.com/embed/inWWhr5tnEA',dur:'20:00',level:"Boshlang'ich",desc:'Asosiy tushunchalar',date:now()},
-        {id:7,dir:4,title:'Python Data Science',url:'https://www.youtube.com/embed/LHBE0uyla5k',dur:'40:00',level:"O'rta",desc:'Pandas, NumPy, Matplotlib',date:now()},
-    ];
+  return [
+    {id:1,dir:0,title:'HTML teglari bilan tanishuv',url:'https://www.youtube.com/embed/qz0aGYrrlhU',dur:'14:32',level:"Boshlang'ich",desc:'HTML tuzilishi va asosiy teglar',date:now()},
+    {id:2,dir:0,title:'CSS Flexbox va Grid',url:'https://www.youtube.com/embed/JJSoEo8JSnc',dur:'22:15',level:"Boshlang'ich",desc:'Layout qilishni o\'rganamiz',date:now()},
+    {id:3,dir:0,title:'JavaScript kirish',url:'https://www.youtube.com/embed/W6NZfCO5SIk',dur:'18:40',level:"Boshlang'ich",desc:'JS asoslari va o\'zgaruvchilar',date:now()},
+    {id:4,dir:1,title:'Python — birinchi qadamlar',url:'https://www.youtube.com/embed/_uQrJ0TkZlc',dur:'25:00',level:"Boshlang'ich",desc:'Python o\'rnatish va sintaksis',date:now()},
+    {id:5,dir:2,title:'Flutter asoslari',url:'https://www.youtube.com/embed/1gDhl4leEzA',dur:'28:10',level:"Boshlang'ich",desc:'Flutter bilan mobil ilova',date:now()},
+    {id:6,dir:3,title:'Kiberxavfsizlik kirish',url:'https://www.youtube.com/embed/inWWhr5tnEA',dur:'20:00',level:"Boshlang'ich",desc:'Asosiy tushunchalar',date:now()},
+    {id:7,dir:4,title:'Python Data Science',url:'https://www.youtube.com/embed/LHBE0uyla5k',dur:'40:00',level:"O'rta",desc:'Pandas, NumPy, Matplotlib',date:now()},
+  ];
 }
-
 function defaultTests() {
-    return [
-        {id:1,dir:0,name:"HTML/CSS Asosiy Test",date:now(),questions:[
-            {q:'HTML qisqartmasi nima?',opts:['HyperText Markup Language','High Tech Modern Language','Home Tool Markup Language','Hyper Transfer Language'],c:0},
-            {q:'CSS da rang berish uchun?',opts:['color','font-color','text-color','fill'],c:0},
-            {q:'Havola uchun HTML teg?',opts:['<a>','<link>','<href>','<url>'],c:0},
-            {q:'Flexbox uchun CSS xususiyat?',opts:['display: flex','layout: flex','position: flex','align: flex'],c:0},
-        ]},
-        {id:2,dir:1,name:"Python Boshlang'ich Test",date:now(),questions:[
-            {q:"Python da print funksiyasi?",opts:['print("hello")','echo("hello")','console.log("hello")','write("hello")'],c:0},
-            {q:"Python da ro'yxat yaratish?",opts:['a = [1,2,3]','a = (1,2,3)','a = {1,2,3}','a = <1,2,3>'],c:0},
-            {q:"Python da for loop?",opts:['for i in range(5):','for(i=0;i<5;i++)','foreach i in 5:','loop i 0 to 5:'],c:0},
-        ]}
-    ];
+  return [
+    {id:1,dir:0,name:"HTML/CSS Asosiy Test",date:now(),questions:[
+      {q:'HTML qisqartmasi nima?',opts:['HyperText Markup Language','High Tech Modern Language','Home Tool Markup Language','Hyper Transfer Language'],c:0},
+      {q:'CSS da rang berish uchun?',opts:['color','font-color','text-color','fill'],c:0},
+      {q:'Havola uchun HTML teg?',opts:['<a>','<link>','<href>','<url>'],c:0},
+      {q:'Flexbox uchun CSS xususiyat?',opts:['display: flex','layout: flex','position: flex','align: flex'],c:0},
+    ]},
+    {id:2,dir:1,name:"Python Boshlang'ich Test",date:now(),questions:[
+      {q:"Python da print funksiyasi?",opts:['print("hello")','echo("hello")','console.log("hello")','write("hello")'],c:0},
+      {q:"Python da ro'yxat yaratish?",opts:['a = [1,2,3]','a = (1,2,3)','a = {1,2,3}','a = <1,2,3>'],c:0},
+      {q:"Python da for loop?",opts:['for i in range(5):','for(i=0;i<5;i++)','foreach i in 5:','loop i 0 to 5:'],c:0},
+    ]}
+  ];
 }
-
 function now() { return new Date().toISOString(); }
 function niceDate(d) { return new Date(d).toLocaleDateString('uz-UZ',{day:'2-digit',month:'short',year:'numeric'}); }
-
+ 
 // ═══════════════════════════════════════════
 //  SCREEN
 // ═══════════════════════════════════════════
